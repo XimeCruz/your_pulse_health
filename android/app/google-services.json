@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "628033473805",
+    "project_id": "your-pulse-e5134",
+    "storage_bucket": "your-pulse-e5134.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628033473805:android:fe09c9acdc321fee4cf444",
+        "android_client_info": {
+          "package_name": "com.example.your_pulse_health"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628033473805-ck78tnk66lo2vfncprgugc4lq9q8bhj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANf2tvssJ2l8HlQWPkjgAvrSYRKIa7Uwc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628033473805-ck78tnk66lo2vfncprgugc4lq9q8bhj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
