@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 
-class FitnessButton extends StatelessWidget {
+class PulseButton extends StatelessWidget {
   final String title;
   final bool isEnabled;
   final Function() onTap;
 
-  FitnessButton({required this.title, this.isEnabled = true, required this.onTap});
+  PulseButton({required this.title, this.isEnabled = true, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

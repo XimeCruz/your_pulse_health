@@ -5,8 +5,8 @@ import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/core/service/validation_service.dart';
 import 'package:your_pulse_health/screens/change_password/bloc/change_password_bloc.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_loading.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_loading.dart';
 import 'package:your_pulse_health/screens/common_widgets/settings_container.dart';
 import 'package:your_pulse_health/screens/common_widgets/settings_textfield.dart';
 
@@ -55,7 +55,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         buildWhen: (_, currState) =>
             currState is ChangePasswordInitial || currState is ChangePasswordError || currState is ChangePasswordProgress || currState is ChangePasswordSuccess,
         builder: (context, state) {
-          if (state is ChangePasswordProgress) return Stack(children: [_editAccountContent(context), FitnessLoading()]);
+          if (state is ChangePasswordProgress) return Stack(children: [_editAccountContent(context), PulseLoading()]);
           if (state is ChangePasswordError) {
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
@@ -105,7 +105,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
               if (isConfirmPassInvalid) Text(TextConstants.confirmPasswordErrorText, style: TextStyle(color: ColorConstants.errorColor)),
               Spacer(),
-              FitnessButton(
+              PulseButton(
                 title: TextConstants.save,
                 isEnabled: true,
                 onTap: () {

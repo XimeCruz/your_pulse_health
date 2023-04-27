@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/path_constants.dart';
 
-class FitnessTextField extends StatefulWidget {
+class PulseTextField extends StatefulWidget {
   final String title;
   final String placeholder;
   final String errorText;
@@ -14,7 +14,7 @@ class FitnessTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final TextInputType? keyboardType;
 
-  const FitnessTextField({
+  const PulseTextField({
     required this.title,
     required this.placeholder,
     this.obscureText = false,
@@ -28,10 +28,10 @@ class FitnessTextField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FitnessTextFieldState createState() => _FitnessTextFieldState();
+  _PulseTextFieldState createState() => _PulseTextFieldState();
 }
 
-class _FitnessTextFieldState extends State<FitnessTextField> {
+class _PulseTextFieldState extends State<PulseTextField> {
   final focusNode = FocusNode();
   bool stateObscureText = false;
   bool stateIsError = false;
@@ -55,7 +55,7 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
   }
 
   @override
-  void didUpdateWidget(covariant FitnessTextField oldWidget) {
+  void didUpdateWidget(covariant PulseTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     stateObscureText = widget.obscureText;

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/core/service/validation_service.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_loading.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_text_field.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_loading.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_text_field.dart';
 import 'package:your_pulse_health/screens/forgot_password/bloc/forgot_password_bloc.dart';
 
 class ForgotPasswordContent extends StatefulWidget {
@@ -47,7 +47,7 @@ class _ForgotPasswordContentState extends State<ForgotPasswordContent> {
   }
 
   Widget _createLoading() {
-    return FitnessLoading();
+    return PulseLoading();
   }
 
   Widget _createMainData(BuildContext context) {
@@ -74,7 +74,7 @@ class _ForgotPasswordContentState extends State<ForgotPasswordContent> {
     final bloc = BlocProvider.of<ForgotPasswordBloc>(context);
     return BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
       builder: (context, state) {
-        return FitnessTextField(
+        return PulseTextField(
           title: TextConstants.email,
           keyboardType: TextInputType.emailAddress,
           placeholder: TextConstants.emailPlaceholder,
@@ -97,7 +97,7 @@ class _ForgotPasswordContentState extends State<ForgotPasswordContent> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
         builder: (context, state) {
-          return FitnessButton(
+          return PulseButton(
             title: TextConstants.sendActivationBuild,
             isEnabled: _isButtonEnabled,
             onTap: () {

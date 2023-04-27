@@ -48,32 +48,36 @@ class WorkoutCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text(
-                      "${workout.exercises} exercises",
-                      style: TextStyle(
-                        color: ColorConstants.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      "${workout.minutes} minutes",
-                      style: TextStyle(
-                        color: ColorConstants.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    // Text(
+                    //   "${workout.exercises} exercises",
+                    //   style: TextStyle(
+                    //     color: ColorConstants.white,
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.w500,
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 5),
+                    // Text(
+                    //   "${workout.minutes} minutes",
+                    //   style: TextStyle(
+                    //     color: ColorConstants.white,
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.w500,
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
             ),
             Positioned(
               right: 0,
-              bottom: 0,
+              bottom: 10,
               child: Image(
-                image: AssetImage("${workout.image}"),
+                image: AssetImage(
+                    "${workout.image}"
+                ),
+                width: 95.0,
+                height: 95.0,
               ),
             ),
           ],

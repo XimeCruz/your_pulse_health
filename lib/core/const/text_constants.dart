@@ -46,12 +46,12 @@ class TextConstants {
   static const String doNotHaveAnAccount = "¿No tienes cuenta?";
 
   // Tab bar
-  static const String homeIcon = "Home";
-  static const String workoutsIcon = "Workouts";
-  static const String settingsIcon = "Settings";
+  static const String homeIcon = "Menu";
+  static const String workoutsIcon = "Presión";
+  static const String settingsIcon = "Ajustes";
 
   // Home screen
-  static const String checkActivity = "Let's check your activity";
+  static const String checkActivity = "Comprobemos tu actividad";
   static const String finished = "Finished";
   static const String completedWorkouts = "Completed workouts";
 
@@ -61,10 +61,27 @@ class TextConstants {
   static const String timeSent = "Time sent";
   static const String minutes = "Minutes";
 
-  static const String discoverWorkouts = "Discover new workouts";
+  static const String startPressure = "Tomar medida";
+
+  static const String discoverWorkouts = "Opciones de manejo de datos";
 
   static const String keepProgress = "Keep the progress!";
   static const String profileSuccessful = "You are more successful than 88% users.";
+
+  // Home screen -> records
+  static const String recordsTitle = "Historial";
+  static const String recordsExercises = "10";
+  static const String recordsMinutes = "50";
+
+  // Home screen -> reports
+  static const String reportsTitle = "Reportes";
+  static const String reportsExercises = "10";
+  static const String reportsMinutes = "50";
+
+  // Home screen -> tips
+  static const String tipsTitle = "Consejos";
+  static const String tipsExercises = "10";
+  static const String tipsMinutes = "50";
 
   // Home screen -> cardio card
   static const String cardioTitle = "Cardio";
@@ -97,11 +114,11 @@ class TextConstants {
   static const String stretchingMinutes = "35";
 
   //Settings screen
-  static const String joinUs = 'Join us in social media';
-  static const String calendar = "Calendar";
-  static const String reminder = "Reminder";
-  static const String rateUsOn = "Rate us on ";
-  static const String terms = "Terms & Conditions";
+  static const String joinUs = 'Únete a nosotros en las redes sociales';
+  static const String calendar = "Calendario";
+  static const String reminder = "Recordatorios";
+  static const String rateUsOn = "Calificanos en ";
+  static const String terms = "Terminos y condiciones";
 
   // Workout Details screen common
   static const String workout = "Workout";
@@ -133,34 +150,34 @@ class TextConstants {
       "Turn your right foot slightly to the right and your left foot out to the left 90 degrees. Align the left heel with the right heel. Firm your thighs and turn your left thigh outward so that the center of the left knee cap is in line with the center of the left ankle.";
 
   // Reminder screen
-  static const String selectTime = "Please select reminder time";
-  static const String save = "Save";
-  static const String repeating = "How often repeat";
+  static const String selectTime = "Seleccione la hora del recordatorio";
+  static const String save = "Guardar";
+  static const String repeating = "¿Con qué frecuencia repetir?";
 
   // Reminder day of the week
-  static const String everyday = "Everyday";
-  static const String monday_friday = "Mon - Fri";
-  static const String weekends = "Weekends";
-  static const String monday = "Monday";
-  static const String tuesday = "Tue";
-  static const String wednesday = "Wed";
-  static const String thursday = "Thu";
-  static const String friday = "Fri";
-  static const String saturday = "Sat";
-  static const String sunday = "Sun";
+  static const String everyday = "Hoy";
+  static const String monday_friday = "Lun - Vi";
+  static const String weekends = "Fines de semana";
+  static const String monday = "Lunes";
+  static const String tuesday = "Martes";
+  static const String wednesday = "Miercoles";
+  static const String thursday = "Jueves";
+  static const String friday = "Viernes";
+  static const String saturday = "Sabado";
+  static const String sunday = "Domingo";
   // Edit account screen
-  static const String editAccount = 'Edit account';
-  static const String editPhoto = 'Edit photo';
-  static const String fullName = 'Full name';
+  static const String editAccount = 'Editar cuenta';
+  static const String editPhoto = 'Editar foto';
+  static const String fullName = 'Nombre completo';
   static const String nameShouldContain2Char = 'Name should contain at least 2 characters';
-  static const String changePassword = 'Change Password';
+  static const String changePassword = 'Cambiar contraseña';
 
   // Edit account screen -> show settings
-  static const String cameraPermission = 'Camera permisson';
-  static const String cameAccess = 'This app needs camera access to take pictures for upload user profile photo';
-  static const String deny = 'Deny';
-  static const String settings = 'Settings';
-  static const String fullNamePlaceholder = 'Enter your full name';
+  static const String cameraPermission = 'Permisos de camara';
+  static const String cameAccess = 'Esta aplicación necesita acceso a la cámara para tomar fotografías y cargar la foto de perfil del usuario';
+  static const String deny = 'Denegado';
+  static const String settings = 'Ajustes';
+  static const String fullNamePlaceholder = 'Introduce tu nombre completo';
 
   //Change password screen
   static const String newPassword = 'Nueva contraseña';

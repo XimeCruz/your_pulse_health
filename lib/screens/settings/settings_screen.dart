@@ -90,14 +90,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             if (!kIsWeb)
               SettingsContainer(
-                child: Text(TextConstants.rateUsOn + '${Platform.isIOS ? 'App store' : 'Play market'}',
+                child: Text(TextConstants.rateUsOn + '${Platform.isIOS ? 'App store' : 'Play Store'}',
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
                 onTap: () {
                   return launch(Platform.isIOS ? 'https://www.apple.com/app-store/' : 'https://play.google.com/store');
                 },
               ),
             SettingsContainer(
-                onTap: () => launch('https://perpet.io/'), child: Text(TextConstants.terms, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500))),
+                onTap: () => launch('https://yourpulse.io/'), child: Text(TextConstants.terms, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500))),
             SettingsContainer(
                 child: Text(TextConstants.signOut, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
                 onTap: () {
@@ -114,17 +114,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                    onPressed: () => launch('https://www.facebook.com/perpetio/'),
+                    onPressed: () => launch('https://www.facebook.com/yourpulse/'),
                     style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
-                    child: Image.asset(PathConstants.facebook)),
+                    child: Image.asset(
+                        PathConstants.facebook,
+                        width: 50.0,
+                        height: 50.0,
+                    )
+                    // child: Icon(
+                    //     Icons.facebook,
+                    //     color: ColorConstants.primaryColor
+                    // )
+                ),
+                SizedBox(width: 15),
                 TextButton(
-                    onPressed: () => launch('https://www.instagram.com/perpetio/'),
+                    onPressed: () => launch('https://www.instagram.com/yourpulse/'),
                     style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
-                    child: Image.asset(PathConstants.instagram)),
+                    child: Image.asset(
+                        PathConstants.instagram,
+                        width: 50.0,
+                        height: 50.0,
+                    )
+                    // child: Icon(
+                    //     Icons.instagr,
+                    //     color: ColorConstants.primaryColor
+                    // )
+                ),
+                SizedBox(width: 15),
                 TextButton(
-                    onPressed: () => launch('https://twitter.com/perpetio'),
+                    onPressed: () => launch('https://twitter.com/yourpulse'),
                     style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
-                    child: Image.asset(PathConstants.twitter)),
+                    child: Image.asset(
+                        PathConstants.twitter,
+                        width: 50.0,
+                        height: 50.0,
+                    )
+                    // child: Icon(
+                    //     Icons.twitt,
+                    //     color: ColorConstants.primaryColor
+                    // )
+                ),
               ],
             )
           ]),

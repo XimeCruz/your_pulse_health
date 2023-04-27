@@ -1,7 +1,7 @@
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/data/exercise_data.dart';
 import 'package:your_pulse_health/data/workout_data.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
 import 'package:your_pulse_health/screens/start_workout/page/start_workout_page.dart';
 import 'package:your_pulse_health/screens/workout_details_screen/bloc/workoutdetails_bloc.dart';
 import 'package:your_pulse_health/screens/workout_details_screen/widget/workout_details_content.dart';
@@ -33,7 +33,7 @@ class WorkoutDetailsPage extends StatelessWidget {
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               floatingActionButton: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: FitnessButton(
+                child: PulseButton(
                   title: workout.currentProgress == 0
                       ? TextConstants.start
                       //: TextConstants.continueT,

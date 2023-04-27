@@ -21,8 +21,8 @@ class SignUpBloc extends Bloc<SignupEvent, SignUpState> {
 
   @override
   Stream<SignUpState> mapEventToState(
-    SignupEvent event,
-  ) async* {
+      SignupEvent event,
+      ) async* {
     if (event is OnTextChangedEvent) {
       if (isButtonEnabled != checkIfSignUpButtonEnabled()) {
         isButtonEnabled = checkIfSignUpButtonEnabled();
@@ -34,7 +34,7 @@ class SignUpBloc extends Bloc<SignupEvent, SignUpState> {
           yield LoadingState();
           await AuthService.signUp(emailController.text, passwordController.text, userNameController.text);
           yield NextTabBarPageState();
-          print("Go to the next page");
+          print("Ir a la página siguiente");
         } catch (e) {
           yield ErrorState(message: e.toString());
         }

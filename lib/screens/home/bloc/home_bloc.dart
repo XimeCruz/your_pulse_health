@@ -32,7 +32,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         photoURL = AuthService.auth.currentUser?.photoURL;
         photoURL != null
             ? await UserStorageService.writeSecureData('image', photoURL)
-            : print('no image');
+            : print('sin imagen de usuario');
       }
       yield ReloadImageState(photoURL: photoURL);
     } else if (event is ReloadDisplayNameEvent) {

@@ -47,4 +47,11 @@ class UserData {
     )
         : [];
   }
+  //
+  // static toJsonString(){
+  //   return UserData(name: "",
+  //   photo: "",
+  //   mail: "",
+  //   workouts: []);
+  // }
 }

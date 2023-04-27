@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
 import 'package:your_pulse_health/screens/reminder/bloc/reminder_bloc.dart';
 import 'package:your_pulse_health/screens/reminder/widget/reminder_content.dart';
 
@@ -39,7 +39,7 @@ class ReminderPage extends StatelessWidget {
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: FitnessButton(
+              child: PulseButton(
                 title: TextConstants.save,
                 onTap: () {
                   final bloc = BlocProvider.of<ReminderBloc>(context);

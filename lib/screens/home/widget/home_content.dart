@@ -6,7 +6,7 @@ import 'package:your_pulse_health/core/const/data_constants.dart';
 import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/data/workout_data.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
 import 'package:your_pulse_health/screens/edit_account/edit_account_screen.dart';
 import 'package:your_pulse_health/screens/home/bloc/home_bloc.dart';
 import 'package:your_pulse_health/screens/home/widget/home_statistics.dart';
@@ -64,11 +64,13 @@ class HomeContent extends StatelessWidget {
                 buildWhen: (_, currState) =>
                 currState is ReloadDisplayNameState,
                 builder: (context, state) {
-                  final displayName = state is ReloadDisplayNameState
-                      ? state.displayName
-                      : '[name]';
+                  final User? user = FirebaseAuth.instance.currentUser;
+                  final displayName = user?.displayName ?? "No Username";
+                  // final displayName = state is ReloadDisplayNameState
+                  //     ? state.displayName
+                  //     : '[name]';
                   return Text(
-                    'Hi, $displayName',
+                    'Hola, $displayName',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -147,32 +149,16 @@ class HomeContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                //image: AssetImage(PathConstants.didYouKnow),
-                image: AssetImage(""),
-                width: 24,
-                height: 24,
+                image: AssetImage(PathConstants.pressureDo),
+                width: 180,
+                height: 180,
               ),
               const SizedBox(width: 10),
-              //Text(TextConstants.didYouKnow,
-              Text("",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500))
             ],
           ),
           const SizedBox(height: 16),
-          //Text(TextConstants.sportActivity,
-            Text("",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 4),
-          //Text(TextConstants.signToStart,
-            Text("",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: ColorConstants.textGrey)),
-          const SizedBox(height: 24),
-          FitnessButton(
-            //title: TextConstants.startWorkout,
-            title: "",
+          PulseButton(
+            title: TextConstants.startPressure,
             onTap: () {
               blocTabBar.add(
                   TabBarItemTappedEvent(index: blocTabBar.currentIndex = 1));
@@ -187,18 +173,18 @@ class HomeContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            TextConstants.discoverWorkouts,
-            style: TextStyle(
-              color: ColorConstants.textBlack,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(height: 15),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 20),
+        //   child: Text(
+        //     TextConstants.discoverWorkouts,
+        //     style: TextStyle(
+        //       color: ColorConstants.textBlack,
+        //       fontSize: 18,
+        //       fontWeight: FontWeight.bold,
+        //     ),
+        //   ),
+        // ),
+        const SizedBox(height: 5),
         Container(
           height: 160,
           child: ListView(
@@ -206,7 +192,7 @@ class HomeContent extends StatelessWidget {
             children: [
               const SizedBox(width: 20),
               WorkoutCard(
-                  color: ColorConstants.cardioColor,
+                  color: ColorConstants.reportColor,
                   workout: DataConstants.workouts[0],
                   onTap: () =>
                       Navigator.of(context).push(MaterialPageRoute(
@@ -215,7 +201,21 @@ class HomeContent extends StatelessWidget {
                                   workout: DataConstants.workouts[0])))),
               const SizedBox(width: 15),
               WorkoutCard(
-                color: ColorConstants.armsColor,
+                color: ColorConstants.recordsColor,
+                workout: DataConstants.workouts[1],
+                onTap: () =>
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            WorkoutDetailsPage(
+                              workout: DataConstants.workouts[1],
+                            ),
+                      ),
+                    ),
+              ),
+              const SizedBox(width: 15),
+              WorkoutCard(
+                color: ColorConstants.tipsColor,
                 workout: DataConstants.workouts[2],
                 onTap: () =>
                     Navigator.of(context).push(

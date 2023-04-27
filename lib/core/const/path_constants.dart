@@ -15,6 +15,7 @@ class PathConstants {
   static const String settings = 'assets/icons/home/settings_icon.png';
 
   // Home
+  static const String pressureDo = 'assets/images/home/cardiaPressure.png';
   static const String profile = 'assets/images/home/profile.png';
   static const String finished = 'assets/images/home/finished.png';
   static const String inProgress = 'assets/icons/home/inProgress.png';
@@ -37,11 +38,17 @@ class PathConstants {
   static const String pilates = 'assets/icons/workouts/pilates.png';
   static const String fullBody = 'assets/icons/workouts/full_body.png';
   static const String stretching = 'assets/icons/workouts/stretching.png';
+  static const String reports = 'assets/images/home/reports.png';
+  static const String records = 'assets/images/home/records.png';
+  static const String tips = 'assets/images/home/tips.png';
 
   //social networks
-  static const String facebook = 'assets/icons/social_networks/facebook.png';
-  static const String instagram = 'assets/icons/social_networks/instagram.png';
-  static const String twitter = 'assets/icons/social_networks/twitter.png';
+  // static const String facebook = 'assets/icons/social_networks/facebook.png';
+  // static const String instagram = 'assets/icons/social_networks/instagram.png';
+  // static const String twitter = 'assets/icons/social_networks/twitter.png';
+  static const String facebook = 'assets/icons/social_networks/facebook_c.png';
+  static const String instagram = 'assets/icons/social_networks/instagram_c.png';
+  static const String twitter = 'assets/icons/social_networks/twitter_c.png';
 
   // Start workout -> Yoga
   static const String recliningVideo = 'assets/videos/workouts/reclining.mp4';

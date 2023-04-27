@@ -40,13 +40,17 @@ class AuthService {
       final User? user = result.user;
 
       if (user == null) {
-        throw Exception("User not found");
+        throw Exception("Usuario no encontrado");
       } else {
         final userFromLocal = await UserStorageService.readSecureData(email);
         final userData = UserData.fromFirebase(auth.currentUser);
+        //print(userData.toJson());
         if (userFromLocal == null) {
+
           await UserStorageService.writeSecureData(
-              email, userData.toJsonString());
+             // email, userData.toJsonString());
+          email, (userData.toJson()).toString());
+
         }
         GlobalConstants.currentUser = userData;
       }
@@ -72,7 +76,7 @@ String getExceptionMessage(FirebaseAuthException e) {
     case 'wrong-password':
       return 'Contraseña incorrecta';
     case 'requires-recent-login':
-      return 'Log in again before retrying this request';
+      return 'Vuelva a iniciar sesión antes de intentar esta solicitud';
     default:
       return e.message ?? 'Error';
   }

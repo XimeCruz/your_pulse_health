@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/data/exercise_data.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
 
 class StartWorkoutContent extends StatelessWidget {
   final WorkoutData workout;
@@ -180,7 +180,7 @@ class StartWorkoutContent extends StatelessWidget {
 
   Widget _createButton(BuildContext context) {
     final bloc = BlocProvider.of<workout_bloc.WorkoutDetailsBloc>(context);
-    return FitnessButton(
+    return PulseButton(
       //title: nextExercise != null ? TextConstants.next : TextConstants.finish,
       title: nextExercise != null ? TextConstants.next : "",
       onTap: () async {

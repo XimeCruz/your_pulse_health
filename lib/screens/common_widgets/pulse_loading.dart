@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 
-class FitnessLoading extends StatelessWidget {
+class PulseLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

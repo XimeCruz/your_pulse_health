@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/core/service/validation_service.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_loading.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_text_field.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_loading.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_text_field.dart';
 import 'package:your_pulse_health/screens/sign_up/bloc/signup_bloc.dart';
 
 class SignUpContent extends StatelessWidget {
@@ -63,7 +63,7 @@ class SignUpContent extends StatelessWidget {
   }
 
   Widget _createLoading() {
-    return FitnessLoading();
+    return PulseLoading();
   }
 
   Widget _createTitle() {
@@ -84,7 +84,7 @@ class SignUpContent extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            FitnessTextField(
+            PulseTextField(
               title: TextConstants.username,
               placeholder: TextConstants.userNamePlaceholder,
               controller: bloc.userNameController,
@@ -96,7 +96,7 @@ class SignUpContent extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            FitnessTextField(
+            PulseTextField(
               title: TextConstants.email,
               placeholder: TextConstants.emailPlaceholder,
               textInputAction: TextInputAction.next,
@@ -109,7 +109,7 @@ class SignUpContent extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            FitnessTextField(
+            PulseTextField(
               title: TextConstants.password,
               placeholder: TextConstants.passwordPlaceholder,
               obscureText: true,
@@ -122,7 +122,7 @@ class SignUpContent extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            FitnessTextField(
+            PulseTextField(
               title: TextConstants.confirmPassword,
               placeholder: TextConstants.confirmPasswordPlaceholder,
               obscureText: true,
@@ -144,11 +144,14 @@ class SignUpContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: BlocBuilder<SignUpBloc, SignUpState>(
-        buildWhen: (_, currState) => currState is SignUpButtonEnableChangedState,
+        buildWhen: (_, currState) =>
+        currState is SignUpButtonEnableChangedState,
         builder: (context, state) {
-          return FitnessButton(
+          return PulseButton(
             title: TextConstants.signUp,
-            isEnabled: state is SignUpButtonEnableChangedState ? state.isEnabled : false,
+            isEnabled: state is SignUpButtonEnableChangedState
+                ? state.isEnabled
+                : false,
             onTap: () {
               FocusScope.of(context).unfocus();
               bloc.add(SignUpTappedEvent());

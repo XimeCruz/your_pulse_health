@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/core/service/validation_service.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_loading.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_text_field.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_loading.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_text_field.dart';
 import 'package:your_pulse_health/screens/sign_in/bloc/sign_in_bloc.dart';
 
 class SignInContent extends StatelessWidget {
@@ -67,7 +67,7 @@ class SignInContent extends StatelessWidget {
   }
 
   Widget _createLoading() {
-    return FitnessLoading();
+    return PulseLoading();
   }
 
   Widget _createHeader() {
@@ -91,7 +91,7 @@ class SignInContent extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FitnessTextField(
+            PulseTextField(
               title: TextConstants.email,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
@@ -100,11 +100,12 @@ class SignInContent extends StatelessWidget {
               errorText: TextConstants.emailErrorText,
               isError: state is ShowErrorState ? !ValidationService.email(bloc.emailController.text) : false,
               onTextChanged: () {
+                print(bloc.emailController.text);
                 bloc.add(OnTextChangeEvent());
               },
             ),
             const SizedBox(height: 20),
-            FitnessTextField(
+            PulseTextField(
               title: TextConstants.password,
               placeholder: TextConstants.passwordPlaceholderSignIn,
               controller: bloc.passwordController,
@@ -112,6 +113,7 @@ class SignInContent extends StatelessWidget {
               isError: state is ShowErrorState ? !ValidationService.password(bloc.passwordController.text) : false,
               obscureText: true,
               onTextChanged: () {
+                print(bloc.passwordController.text);
                 bloc.add(OnTextChangeEvent());
               },
             ),
@@ -149,7 +151,7 @@ class SignInContent extends StatelessWidget {
       child: BlocBuilder<SignInBloc, SignInState>(
         buildWhen: (_, currState) => currState is SignInButtonEnableChangedState,
         builder: (context, state) {
-          return FitnessButton(
+          return PulseButton(
             title: TextConstants.signIn,
             isEnabled: state is SignInButtonEnableChangedState ? state.isEnabled : false,
             onTap: () {

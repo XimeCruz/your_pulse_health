@@ -10,8 +10,8 @@ import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/core/service/validation_service.dart';
 import 'package:your_pulse_health/screens/change_password/change_password_page.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_button.dart';
-import 'package:your_pulse_health/screens/common_widgets/fitness_loading.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
+import 'package:your_pulse_health/screens/common_widgets/pulse_loading.dart';
 import 'package:your_pulse_health/screens/common_widgets/settings_container.dart';
 import 'package:your_pulse_health/screens/common_widgets/settings_textfield.dart';
 import 'package:your_pulse_health/screens/edit_account/bloc/edit_account_bloc.dart';
@@ -73,7 +73,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         builder: (context, state) {
           if (state is EditAccountProgress)
             return Stack(
-              children: [_editAccountContent(context), FitnessLoading()],
+              children: [_editAccountContent(context), PulseLoading()],
             );
           if (state is EditAccountError) {
             WidgetsBinding.instance!.addPostFrameCallback((_) async {
@@ -163,7 +163,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                 ),
               ),
               Spacer(),
-              FitnessButton(
+              PulseButton(
                 title: TextConstants.save,
                 isEnabled: true,
                 onTap: () {
