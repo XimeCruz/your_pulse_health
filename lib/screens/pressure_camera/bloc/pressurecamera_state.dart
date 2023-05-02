@@ -40,3 +40,10 @@ class GraphState extends PressureCameraState{
     required this.timer,
   });
 }
+
+class ChangeBPMState extends PressureCameraState{
+  late bool isBPMEnabled;
+  ChangeBPMState({
+    required this.isBPMEnabled
+  });
+}

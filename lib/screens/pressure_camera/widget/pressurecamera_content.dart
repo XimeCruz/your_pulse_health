@@ -10,6 +10,8 @@ import 'package:your_pulse_health/screens/pressure/widget/pressure_button.dart';
 import 'package:oscilloscope/oscilloscope.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:heart_bpm/heart_bpm.dart';
+import 'package:heart_bpm/chart.dart';
 
 import 'package:your_pulse_health/screens/pressure_camera/bloc/pressurecamera_bloc.dart';
 
@@ -69,6 +71,13 @@ class PressureCameraContent extends StatelessWidget {
   }
 
   Widget _buttonSelectType (BuildContext context, PressureCameraBloc bloc){
+    PressureCameraBloc bloc = BlocProvider.of<PressureCameraBloc>(context);
+    List<SensorValue> data = [];
+    List<SensorValue> bpmValues = [];
+    //Widget chart = BPMChart(data);
+
+    bool isBPMEnabled = false;
+    Widget? dialog;
     return Expanded(
       child: Center(
         child: SizedBox.fromSize(
@@ -78,9 +87,11 @@ class PressureCameraContent extends StatelessWidget {
               color: ColorConstants.primaryColor, // button color
               child: InkWell(
                 splashColor: ColorConstants.reportColor, // splash color
-                onTap: () async {
-                  chooseOptionPressure(context);
-                },
+                // onTap: () async {
+                //   //chooseOptionPressure(context);
+                //   setState(() => isBPMEnabled = !isBPMEnabled),
+                // },
+                onTap: () => bloc.add(ChangeBPMEvent(isBPMEnabled: isBPMEnabled)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -91,13 +102,13 @@ class PressureCameraContent extends StatelessWidget {
                       width: 30.0,
                       height: 30.0,
                     ),
-                    Text(
-                        TextConstants.pushPressure,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                    ), // text
+                    // Text(
+                    //     isBPMEnabled ? TextConstants.stopPressure : TextConstants.pushPressure),
+                    //     style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 20,
+                    //     ),
+                    // ), // text
                   ],
                 ),
               ),

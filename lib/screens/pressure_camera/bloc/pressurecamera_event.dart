@@ -12,3 +12,9 @@ class CardTappedEvent extends PressureCameraEvent {
 class PressureCameraInitialEvent extends PressureCameraEvent {}
 
 class GraphEvent extends PressureCameraEvent{}
+
+class ChangeBPMEvent extends PressureCameraEvent{
+  late final bool isBPMEnabled;
+  ChangeBPMEvent({required this.isBPMEnabled});
+
+}

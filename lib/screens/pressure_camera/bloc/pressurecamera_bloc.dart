@@ -23,8 +23,8 @@ class PressureCameraBloc extends Bloc<PressureCameraEvent, PressureCameraState> 
       typePressureCamera = DataConstants.typepressure;
       yield TypePressureCameraMeasurementState(typepressures: typePressureCamera);
     }
-    else if(event is GraphEvent){
-
+    else if(event is ChangeBPMEvent){
+      yield ChangeBPMState(isBPMEnabled: !event.isBPMEnabled);
     }
     // } else if (event is ReloadImageEvent) {
     //   String? photoURL = await UserStorageService.readSecureData('image');
@@ -42,4 +42,6 @@ class PressureCameraBloc extends Bloc<PressureCameraEvent, PressureCameraState> 
   }
 
 }
+
+
 

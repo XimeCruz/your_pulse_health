@@ -196,5 +196,6 @@ class TextConstants {
 
   //Measurement Pressure Camera
   static const pressurebycamera = 'Toma de presión por camara';
+  static const stopPressure = 'Dejar de medir';
 
 }
