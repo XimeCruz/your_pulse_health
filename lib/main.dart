@@ -9,6 +9,7 @@ import 'package:your_pulse_health/core/service/notification_service.dart';
 import 'package:your_pulse_health/screens/splash_screen/splash_screen.dart';
 //import 'package:your_pulse_health/screens/tab_bar/page/tab_bar_page.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:oscilloscope/oscilloscope.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   static late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = NotificationService.flutterLocalNotificationsPlugin;
+//osciloscopio
+  //Timer? _timer;
 
   @override
   initState() {
@@ -34,8 +37,18 @@ class _MyAppState extends State<MyApp> {
 
     tz.initializeTimeZones();
 
+    //osciloscopio
+    //_timer = Timer.periodic(Duration(milliseconds: 60), _generateTrace);
+
     flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
   }
+
+  //osci
+  // @override
+  // void dispose() {
+  //   _timer!.cancel();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

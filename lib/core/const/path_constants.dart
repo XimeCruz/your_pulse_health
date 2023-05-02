@@ -16,7 +16,8 @@ class PathConstants {
 
   // Home
   static const String pressureDo = 'assets/images/home/cardiaPressure.png';
-  static const String profile = 'assets/images/home/profile.png';
+  //static const String profile = 'assets/images/home/profile.png';
+  static const String profile = 'assets/images/home/profile_c.png';
   static const String finished = 'assets/images/home/finished.png';
   static const String inProgress = 'assets/icons/home/inProgress.png';
   static const String timeSent = 'assets/icons/home/time.png';
@@ -46,12 +47,18 @@ class PathConstants {
   // static const String facebook = 'assets/icons/social_networks/facebook.png';
   // static const String instagram = 'assets/icons/social_networks/instagram.png';
   // static const String twitter = 'assets/icons/social_networks/twitter.png';
-  static const String facebook = 'assets/icons/social_networks/facebook_c.png';
-  static const String instagram = 'assets/icons/social_networks/instagram_c.png';
-  static const String twitter = 'assets/icons/social_networks/twitter_c.png';
+  // static const String facebook = 'assets/icons/social_networks/facebook_c.png';
+  // static const String instagram = 'assets/icons/social_networks/instagram_c.png';
+  // static const String twitter = 'assets/icons/social_networks/twitter_c.png';
+  static const String facebook = 'assets/icons/social_networks/facebook_c2.png';
+  static const String instagram = 'assets/icons/social_networks/instagram_c2.png';
+  static const String twitter = 'assets/icons/social_networks/twitter_c2.png';
 
   // Start workout -> Yoga
   static const String recliningVideo = 'assets/videos/workouts/reclining.mp4';
   static const String cowPoseVideo = 'assets/videos/workouts/cow.mp4';
   static const String warriorIIVideo = 'assets/videos/workouts/warriorII.mp4';
+
+  // Measurement Pressure
+  static const String iconButtonPressure = 'assets/icons/pressure/heart_monitor.png';
 }

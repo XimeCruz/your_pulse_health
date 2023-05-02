@@ -1,6 +1,8 @@
 import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/data/exercise_data.dart';
+import 'package:your_pulse_health/data/pressure_data.dart';
+import 'package:your_pulse_health/data/typepressure_data.dart';
 import 'package:your_pulse_health/data/workout_data.dart';
 import 'package:your_pulse_health/screens/onboarding/widget/onboarding_tile.dart';
 
@@ -301,4 +303,13 @@ class DataConstants {
     TextConstants.saturday,
     TextConstants.sunday,
   ];
+
+
+
+  //Type pressure
+  static final List<TypePressureData> typepressure = [
+    TypePressureData(name: 'Celular', text: 'Medir por la cámara del celular'),
+    TypePressureData(name: 'Wearable and Device', text:'Medir por un smartwatch o el dispositivo ECG')
+  ];
+
 }

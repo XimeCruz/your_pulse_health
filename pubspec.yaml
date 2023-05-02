@@ -63,6 +63,9 @@ dependencies:
   #Data Base
   flutter_secure_storage: ^4.2.1
 
+  #Osciloscopio
+  oscilloscope: ^0.2.0+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -96,6 +99,7 @@ flutter:
     - assets/icons/workouts/
     - assets/icons/social_networks/
     - assets/videos/workouts/
+    - assets/icons/pressure/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

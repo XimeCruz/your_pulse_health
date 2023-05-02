@@ -118,36 +118,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
                     child: Image.asset(
                         PathConstants.facebook,
-                        width: 50.0,
-                        height: 50.0,
+                        width: 30.0,
+                        height: 30.0,
                     )
                     // child: Icon(
                     //     Icons.facebook,
                     //     color: ColorConstants.primaryColor
                     // )
                 ),
-                SizedBox(width: 15),
                 TextButton(
                     onPressed: () => launch('https://www.instagram.com/yourpulse/'),
                     style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
                     child: Image.asset(
                         PathConstants.instagram,
-                        width: 50.0,
-                        height: 50.0,
+                        width: 30.0,
+                        height: 30.0,
                     )
                     // child: Icon(
                     //     Icons.instagr,
                     //     color: ColorConstants.primaryColor
                     // )
                 ),
-                SizedBox(width: 15),
                 TextButton(
                     onPressed: () => launch('https://twitter.com/yourpulse'),
                     style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
                     child: Image.asset(
                         PathConstants.twitter,
-                        width: 50.0,
-                        height: 50.0,
+                        width: 30.0,
+                        height: 30.0,
                     )
                     // child: Icon(
                     //     Icons.twitt,

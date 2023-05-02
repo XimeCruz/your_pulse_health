@@ -8,8 +8,8 @@ part 'tab_bar_state.dart';
 
 class TabBarBloc extends Bloc<TabBarEvent, TabBarState> {
   TabBarBloc() : super(TabBarInitial());
-
-  int currentIndex = 0;
+  //default
+  int currentIndex = 1;
   bool isSelected = false;
 
   @override

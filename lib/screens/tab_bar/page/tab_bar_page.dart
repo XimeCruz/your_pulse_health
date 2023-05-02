@@ -2,6 +2,8 @@ import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/screens/home/page/home_page.dart';
+import 'package:your_pulse_health/screens/pressure/page/pressure_page.dart';
+import 'package:your_pulse_health/screens/pressure_camera/page/pressurecamera_page.dart';
 import 'package:your_pulse_health/screens/settings/settings_screen.dart';
 import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
 import 'package:your_pulse_health/screens/workouts/page/workouts_page.dart';
@@ -79,8 +81,9 @@ class TabBarPage extends StatelessWidget {
   Widget _createBody(BuildContext context, int index) {
     final children = [
       HomePage(),
-      WorkoutsPage(),
-      SettingsScreen()
+      PressurePage(),
+      //WorkoutsPage(),
+      SettingsScreen(),
       // Scaffold(
       //   body: Center(
       //     child: RawMaterialButton(

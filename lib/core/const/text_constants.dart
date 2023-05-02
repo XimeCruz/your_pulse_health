@@ -187,4 +187,14 @@ class TextConstants {
   static const passwordReset = 'Restablecer contraseña';
   static const sendActivationBuild = 'Enviar enlace de activación';
   static const resetPasswordLinkWasSent = 'El enlace para restablecer la contraseña fue enviado a su correo electrónico';
+
+  //Measurement Pressure
+  static const namePressure = 'bpm';
+  static const pushPressure = 'Empezar';
+  static const chosseSelection = 'Elige una opción';
+  static const chosseDevice = 'Selecciona un dispositivo';
+
+  //Measurement Pressure Camera
+  static const pressurebycamera = 'Toma de presión por camara';
+
 }
