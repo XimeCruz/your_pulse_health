@@ -10,7 +10,10 @@ import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
 import 'package:your_pulse_health/screens/edit_account/edit_account_screen.dart';
 import 'package:your_pulse_health/screens/home/bloc/home_bloc.dart';
 import 'package:your_pulse_health/screens/home/widget/home_statistics.dart';
+import 'package:your_pulse_health/screens/record/page/record_page.dart';
+import 'package:your_pulse_health/screens/report/page/report_page.dart';
 import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
+import 'package:your_pulse_health/screens/tip/page/tip_page.dart';
 import 'package:your_pulse_health/screens/workout_details_screen/page/workout_details_page.dart';
 
 import 'home_exercises_card.dart';
@@ -195,38 +198,42 @@ class HomeContent extends StatelessWidget {
                   color: ColorConstants.reportColor,
                   workout: DataConstants.workouts[0],
                   onTap: () =>
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) =>
-                              WorkoutDetailsPage(
-                                  workout: DataConstants.workouts[0])))),
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => ReportPage()))),
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (_) =>
+                      //         WorkoutDetailsPage(
+                      //             workout: DataConstants.workouts[0])))),
               const SizedBox(width: 15),
               WorkoutCard(
                 color: ColorConstants.recordsColor,
                 workout: DataConstants.workouts[1],
                 onTap: () =>
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            WorkoutDetailsPage(
-                              workout: DataConstants.workouts[1],
-                            ),
-                      ),
-                    ),
-              ),
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => RecordPage()))),
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (_) =>
+                    //         WorkoutDetailsPage(
+                    //           workout: DataConstants.workouts[1],
+                    //         ),
+                    //   ),
+                    // ),
               const SizedBox(width: 15),
               WorkoutCard(
                 color: ColorConstants.tipsColor,
                 workout: DataConstants.workouts[2],
                 onTap: () =>
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            WorkoutDetailsPage(
-                              workout: DataConstants.workouts[2],
-                            ),
-                      ),
-                    ),
-              ),
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => TipPage()))),
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (_) =>
+                    //         WorkoutDetailsPage(
+                    //           workout: DataConstants.workouts[2],
+                    //         ),
+                    //   ),
+                    // ),
               const SizedBox(width: 20),
             ],
           ),
