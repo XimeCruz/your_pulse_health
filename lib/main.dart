@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
+import 'package:your_pulse_health/core/const/global_constants.dart';
 import 'package:your_pulse_health/core/service/notification_service.dart';
+import 'package:your_pulse_health/data/user_data.dart';
 //import 'package:your_pulse_health/screens/onboarding/page/onboarding_page.dart';
 import 'package:your_pulse_health/screens/splash_screen/splash_screen.dart';
 //import 'package:your_pulse_health/screens/tab_bar/page/tab_bar_page.dart';
@@ -56,11 +58,17 @@ class _MyAppState extends State<MyApp> {
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Color.fromARGB(0, 255, 255, 255)));
 
-    final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    // final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+
+    final currUser = FirebaseAuth.instance.currentUser;
+    final isLoggedIn = currUser != null;
+    if (isLoggedIn) {
+      GlobalConstants.currentUser = UserData.fromFirebase(currUser);
+    }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fitness',
+      title: 'YourPulse',
       theme: ThemeData(
         textTheme: TextTheme(bodyText1: TextStyle(color: ColorConstants.textColor)),
         fontFamily: 'NotoSansKR',

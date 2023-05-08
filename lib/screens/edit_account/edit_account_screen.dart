@@ -99,93 +99,97 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
           child: SizedBox(
             height: height - 140 - MediaQuery.of(context).padding.bottom,
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Center(child: _getImageWidget()),
-              SizedBox(height: 15),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    _bloc.add(UploadImage());
-                  },
-                  child: Text(
-                    TextConstants.editPhoto,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: ColorConstants.primaryColor,
-                    ),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(child: _getImageWidget()),
+                      SizedBox(height: 15),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            _bloc.add(UploadImage());
+                          },
+                          child: Text(
+                            TextConstants.editPhoto,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: ColorConstants.primaryColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Text(
+                        TextConstants.fullName,
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      SettingsContainer(
+                          child: SettingsTextField(
+                            controller: _nameController,
+                            placeHolder: TextConstants.fullNamePlaceholder,
+                          )
+                      ),
+                if (isNameInvalid)
+                  Text(TextConstants.nameShouldContain2Char,
+                    style: TextStyle(color: ColorConstants.errorColor)),
+                  Text(TextConstants.email,
+                      style: TextStyle(fontWeight: FontWeight.w600)),
+                  SettingsContainer(
+                      child: SettingsTextField(
+                        controller: _emailController,
+                        placeHolder: TextConstants.emailPlaceholder,
+                      )
                   ),
-                ),
+                  if (isEmailInvalid)
+                    Text(TextConstants.emailErrorText,
+                      style: TextStyle(color: ColorConstants.errorColor)),
+                  SizedBox(height: 15),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChangePasswordScreen()));
+                    },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(TextConstants.changePassword,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: ColorConstants.primaryColor,
+                              fontSize: 18)),
+                      SizedBox(width: 10),
+                      Icon(Icons.arrow_forward_ios,
+                          color: ColorConstants.primaryColor)
+                    ],
+                  ),
               ),
-              SizedBox(height: 15),
-              Text(
-                TextConstants.fullName,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              SettingsContainer(
-                  child: SettingsTextField(
-                controller: _nameController,
-                placeHolder: TextConstants.fullNamePlaceholder,
-              )),
-              if (isNameInvalid)
-                Text(TextConstants.nameShouldContain2Char,
-                    style: TextStyle(color: ColorConstants.errorColor)),
-              Text(TextConstants.email,
-                  style: TextStyle(fontWeight: FontWeight.w600)),
-              SettingsContainer(
-                  child: SettingsTextField(
-                controller: _emailController,
-                placeHolder: TextConstants.emailPlaceholder,
-              )),
-              if (isEmailInvalid)
-                Text(TextConstants.emailErrorText,
-                    style: TextStyle(color: ColorConstants.errorColor)),
-              SizedBox(height: 15),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChangePasswordScreen()));
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(TextConstants.changePassword,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: ColorConstants.primaryColor,
-                            fontSize: 18)),
-                    SizedBox(width: 10),
-                    Icon(Icons.arrow_forward_ios,
-                        color: ColorConstants.primaryColor)
-                  ],
-                ),
-              ),
-              Spacer(),
-              PulseButton(
-                title: TextConstants.save,
-                isEnabled: true,
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                  setState(() {
-                    isNameInvalid = !(_nameController.text.length > 1);
-                    isEmailInvalid =
-                        !ValidationService.email(_emailController.text);
-                  });
-                  if (!(isNameInvalid || isEmailInvalid)) {
-                    if (userName != _nameController.text ||
-                        userEmail != _emailController.text) {
-                      _bloc.add(ChangeUserData(
-                          displayName: _nameController.text,
-                          email: _emailController.text));
-                      userName = _nameController.text;
-                      userEmail = _emailController.text;
+                Spacer(),
+                PulseButton(
+                  title: TextConstants.save,
+                  isEnabled: true,
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    setState(() {
+                      isNameInvalid = !(_nameController.text.length > 1);
+                      isEmailInvalid =
+                          !ValidationService.email(_emailController.text);
+                    });
+                    if (!(isNameInvalid || isEmailInvalid)) {
+                      if (userName != _nameController.text ||
+                          userEmail != _emailController.text) {
+                        _bloc.add(ChangeUserData(
+                            displayName: _nameController.text,
+                            email: _emailController.text));
+                        userName = _nameController.text;
+                        userEmail = _emailController.text;
+                      }
                     }
-                  }
-                  Navigator.pop(context, true);
-                },
-              ),
+                    Navigator.pop(context, true);
+                  },
+                ),
             ]),
           ),
         ),

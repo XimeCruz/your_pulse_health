@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meta/meta.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:your_pulse_health/core/const/text_constants.dart';
 
 part 'reminder_event.dart';
 part 'reminder_state.dart';
@@ -46,8 +47,8 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
 
     await flutterNotificationsPlugin.zonedSchedule(
       1,
-      "Fitness",
-      "Hey, it's time to start your exercises!",
+      TextConstants.nameApplication,
+      TextConstants.descriptionNotification,
       _scheduleWeekly(dateTime, days: _createNotificationDayOfTheWeek(dayTime)),
       platformChannelSpecifics,
       uiLocalNotificationDateInterpretation:

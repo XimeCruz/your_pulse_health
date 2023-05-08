@@ -35,6 +35,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: BlocConsumer<SettingsBloc, SettingsState>(
         buildWhen: (_, currState) => currState is SettingsInitial,
         builder: (context, state) {
+          final bloc = BlocProvider.of<SettingsBloc>(context);
+          if (state is SettingsInitial) {
+            bloc.add(SettingsReloadDisplayNameEvent());
+            bloc.add(SettingsReloadImageEvent());
+          }
           return _settingsContent(context);
         },
         listenWhen: (_, currState) => true,
@@ -53,31 +58,73 @@ class _SettingsScreenState extends State<SettingsScreen> {
           padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
           child: Column(children: [
             Stack(alignment: Alignment.topRight, children: [
-              Center(
-                child: photoUrl == null
-                    ? CircleAvatar(backgroundImage: AssetImage(PathConstants.profile), radius: 60)
-                    : CircleAvatar(
-                        child: ClipOval(
-                            child: FadeInImage.assetNetwork(
-                          placeholder: PathConstants.profile,
-                          image: photoUrl!,
-                          fit: BoxFit.cover,
-                          width: 200,
-                          height: 120,
-                        )),
-                        radius: 60,
-                      ),
+              BlocBuilder<SettingsBloc,SettingsState>(
+                buildWhen: (_, currState) =>
+                currState is SettingsReloadImageState,
+                builder: (context, state) {
+                  final photoURL =
+                  state is SettingsReloadImageState ? state.photoURL : null;
+                  return Center(
+                    child: photoURL == null
+                        ? CircleAvatar(
+                        backgroundImage: AssetImage(PathConstants.profile),
+                        radius: 60)
+                        : CircleAvatar(
+                      child: ClipOval(
+                          child: FadeInImage.assetNetwork(
+                            placeholder: PathConstants.profile,
+                            image: photoURL,
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 120,
+                          )),
+                      radius: 60,
+                    ),
+                  );
+                },
               ),
               TextButton(
                   onPressed: () async {
-                    await Navigator.push(context, MaterialPageRoute(builder: (context) => EditAccountScreen()));
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditAccountScreen()));
                     setState(() {
                       photoUrl = user?.photoURL ?? null;
                     });
                   },
-                  style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: ColorConstants.primaryColor.withOpacity(0.16)),
+                  style: TextButton.styleFrom(
+                      shape: CircleBorder(),
+                      backgroundColor:
+                      ColorConstants.primaryColor.withOpacity(0.16)),
                   child: Icon(Icons.edit, color: ColorConstants.primaryColor)),
             ]),
+            // Stack(alignment: Alignment.topRight, children: [
+            //   Center(
+            //     child: photoUrl == null
+            //         ? CircleAvatar(backgroundImage: AssetImage(PathConstants.profile), radius: 60)
+            //         : CircleAvatar(
+            //       child: ClipOval(
+            //           child: FadeInImage.assetNetwork(
+            //             placeholder: PathConstants.profile,
+            //             image: photoUrl!,
+            //             fit: BoxFit.cover,
+            //             width: 200,
+            //             height: 120,
+            //           )),
+            //       radius: 60,
+            //     ),
+            //   ),
+            //   TextButton(
+            //       onPressed: () async {
+            //         await Navigator.push(context, MaterialPageRoute(builder: (context) => EditAccountScreen()));
+            //         setState(() {
+            //           photoUrl = user?.photoURL ?? null;
+            //         });
+            //       },
+            //       style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: ColorConstants.primaryColor.withOpacity(0.16)),
+            //       child: Icon(Icons.edit, color: ColorConstants.primaryColor)),
+            // ]),
             SizedBox(height: 15),
             Text(displayName, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             SizedBox(height: 15),
@@ -110,53 +157,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(height: 15),
             Text(TextConstants.joinUs, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                    onPressed: () => launch('https://www.facebook.com/yourpulse/'),
-                    style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
-                    child: Image.asset(
-                        PathConstants.facebook,
-                        width: 30.0,
-                        height: 30.0,
-                    )
-                    // child: Icon(
-                    //     Icons.facebook,
-                    //     color: ColorConstants.primaryColor
-                    // )
-                ),
-                TextButton(
-                    onPressed: () => launch('https://www.instagram.com/yourpulse/'),
-                    style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
-                    child: Image.asset(
-                        PathConstants.instagram,
-                        width: 30.0,
-                        height: 30.0,
-                    )
-                    // child: Icon(
-                    //     Icons.instagr,
-                    //     color: ColorConstants.primaryColor
-                    // )
-                ),
-                TextButton(
-                    onPressed: () => launch('https://twitter.com/yourpulse'),
-                    style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
-                    child: Image.asset(
-                        PathConstants.twitter,
-                        width: 30.0,
-                        height: 30.0,
-                    )
-                    // child: Icon(
-                    //     Icons.twitt,
-                    //     color: ColorConstants.primaryColor
-                    // )
-                ),
-              ],
-            )
+            _createJoinSocialMedia()
           ]),
         ),
       ),
     );
   }
+
+  Widget _createJoinSocialMedia() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+            onPressed: () => launch('https://www.facebook.com/yourpulse/'),
+            style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
+            child: Image.asset(
+              PathConstants.facebook,
+              width: 30.0,
+              height: 30.0,
+            )
+          // child: Icon(
+          //     Icons.facebook,
+          //     color: ColorConstants.primaryColor
+          // )
+        ),
+        TextButton(
+            onPressed: () => launch('https://www.instagram.com/yourpulse/'),
+            style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
+            child: Image.asset(
+              PathConstants.instagram,
+              width: 30.0,
+              height: 30.0,
+            )
+          // child: Icon(
+          //     Icons.instagr,
+          //     color: ColorConstants.primaryColor
+          // )
+        ),
+        TextButton(
+            onPressed: () => launch('https://twitter.com/yourpulse'),
+            style: TextButton.styleFrom(shape: CircleBorder(), backgroundColor: Colors.white, elevation: 1),
+            child: Image.asset(
+              PathConstants.twitter,
+              width: 30.0,
+              height: 30.0,
+            )
+          // child: Icon(
+          //     Icons.twitt,
+          //     color: ColorConstants.primaryColor
+          // )
+        ),
+      ],
+    );
+  }
 }
+
+

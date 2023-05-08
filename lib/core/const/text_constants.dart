@@ -198,4 +198,8 @@ class TextConstants {
   static const pressurebycamera = 'Toma de presión por camara';
   static const stopPressure = 'Dejar de medir';
 
+  //Notifications
+  static const nameApplication = 'Your Pulse';
+  static const descriptionNotification = '¡Hola, es hora de comenzar a tomar la presión de tu corazón!';
+
 }
