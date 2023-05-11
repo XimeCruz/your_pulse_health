@@ -25,4 +25,6 @@ class ColorConstants {
   static const recordsColor = Color(0xFFB56576);
   static const tipsColor = Color(0xFF5a98e3);
   //static const tipsColor = Color(0xFFF7DBA7);
+
+  static const tipCardsColor = Color(0xFF062e62);
 }

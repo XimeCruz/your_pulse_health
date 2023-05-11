@@ -202,4 +202,9 @@ class TextConstants {
   static const nameApplication = 'Your Pulse';
   static const descriptionNotification = '¡Hola, es hora de comenzar a tomar la presión de tu corazón!';
 
+  //Tips Screen
+  static const String tipsTitleHome = "Consejos de salud";
+  static const String beginTitleHome = "Antes de comenzar";
+  static const String beginsubTitleHome = "Lea esto";
+
 }

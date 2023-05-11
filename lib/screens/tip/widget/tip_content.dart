@@ -4,42 +4,19 @@ import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/data_constants.dart';
 import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
-import 'package:your_pulse_health/data/typepressure_data.dart';
-import 'package:your_pulse_health/screens/pressure/widget/pressure_button.dart';
-import 'package:oscilloscope/oscilloscope.dart';
-import 'package:your_pulse_health/screens/pressure_camera/page/pressurecamera_page.dart';
-import 'dart:math';
+import 'package:your_pulse_health/data/tip_data.dart';
+import 'package:your_pulse_health/screens/home/widget/home_exercises_card.dart';
 
-import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
 import 'package:your_pulse_health/screens/tip/bloc/tip_bloc.dart';
+import 'package:your_pulse_health/screens/tip/widget/tip_tips_card.dart';
+import 'package:your_pulse_health/screens/tip_details_screen/page/tip_details_page.dart';
+import 'package:your_pulse_health/screens/workout_details_screen/page/workout_details_page.dart';
 
 class TipContent extends StatelessWidget {
-  final List<TypePressureData> typepressures;
 
   const TipContent({
-    required this.typepressures,
     Key? key,
   }) : super(key: key);
-
-  /// method to generate a Test  Wave Pattern Sets
-  /// this gives us a value between +1  & -1 for sine & cosine
-  // _generateTrace(Timer t) {
-  //   // generate our  values
-  //   var sv = sin((radians * pi));
-  //   var cv = cos((radians * pi));
-  //
-  //   // Add to the growing dataset
-  //   setState(() {
-  //     traceSine.add(sv);
-  //     traceCosine.add(cv);
-  //   });
-  //
-  //   // adjust to recyle the radian value ( as 0 = 2Pi RADS)
-  //   radians += 0.05;
-  //   if (radians >= 2.0) {
-  //     radians = 0.0;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,260 +24,121 @@ class TipContent extends StatelessWidget {
       color: ColorConstants.homeBackgroundColor,
       height: double.infinity,
       width: double.infinity,
-      child: _createPressureBody(context),
+      child: _createTipBody(context),
     );
   }
 
-  Widget _createPressureBody(BuildContext context) {
+  Widget _createTipBody(BuildContext context) {
     final bloc = BlocProvider.of<TipBloc>(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 50),
+      padding: const EdgeInsets.only(top: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Text('Presión',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          _circleWelcomeTip(context),
+          // Center(
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          //     child: Text('Consejos de salud',
+          //         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          //   ),
+          // ),
+          const SizedBox(height: 15),
+          Container(
+            height: 500,
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: DataConstants.tips
+                  .map(
+                    (e) => _createTipCard(e,context),
+              )
+                  .toList(),
+            ),
+            // child: ListView(
+            //   scrollDirection: Axis.vertical,
+            //   children: [
+            //     const SizedBox(height: 5),
+            //     WorkoutCard(
+            //         color: ColorConstants.armsColor,
+            //         workout: DataConstants.workouts[1],
+            //         onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            //             builder: (_) => WorkoutDetailsPage(
+            //               workout: DataConstants.workouts[2],
+            //             )))),
+            //     const SizedBox(height: 15),
+            //     WorkoutCard(
+            //         color: ColorConstants.armsColor,
+            //         workout: DataConstants.workouts[1],
+            //         onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            //             builder: (_) => WorkoutDetailsPage(
+            //               workout: DataConstants.workouts[2],
+            //             )))),
+            //     const SizedBox(height: 15),
+            //     WorkoutCard(
+            //         color: ColorConstants.armsColor,
+            //         workout: DataConstants.workouts[1],
+            //         onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            //             builder: (_) => WorkoutDetailsPage(
+            //               workout: DataConstants.workouts[2],
+            //             )))),
+            //     const SizedBox(width: 20),
+            //   ],
+            // ),
           ),
-          const SizedBox(height: 90),
-          _valueBPM(context, bloc),
-          const SizedBox(height: 25),
-          _graphValueBPM(context, bloc),
-          const SizedBox(height: 25),
-          _buttonSelectType(context, bloc),
-          const SizedBox(height: 30),
         ],
       ),
     );
   }
 
-  Widget _buttonSelectType(BuildContext context, TipBloc bloc) {
-    return Expanded(
-      child: Center(
-          child: SizedBox.fromSize(
-        size: Size(150, 150), // button width and height
-        child: ClipOval(
-          child: Material(
-            color: ColorConstants.primaryColor, // button color
-            child: InkWell(
-              splashColor: ColorConstants.reportColor, // splash color
-              onTap: () async {
-                chooseOptionPressure(context);
-              },
+  Widget _createTipCard(TipData tipData, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20,left: 20,right: 20),
+      child: TipHomeCard(
+          color: ColorConstants.armsColor,
+          tip: tipData,
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => TipDetailsPage(
+                tip: tipData,
+              )))
+      ),
+    );
+  }
+
+}
+
+  Widget _circleWelcomeTip(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(left: 10,right: 10),
+          child: Container(
+            width: double.infinity,
+            height: 120,
+            padding: new EdgeInsets.all(10.0),
+            child: Card (
+              margin: EdgeInsets.all(10),
+              color: ColorConstants.primaryColor,
+              shadowColor: Colors.blueGrey,
+              elevation: 10,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Image(
-                    image: AssetImage(
-                      PathConstants.iconButtonPressure,
+                   ListTile(
+                    title: Text(
+                      TextConstants.beginTitleHome,
+                      style: TextStyle(fontSize: 20,color: ColorConstants.white),
                     ),
-                    width: 30.0,
-                    height: 30.0,
-                  ),
-                  Text(
-                    TextConstants.pushPressure,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                    subtitle: Text(
+                      TextConstants.beginsubTitleHome,
+                      style: TextStyle(color: ColorConstants.reportColor)),
+                    trailing: Container(
+                      child: Image(
+                        image: AssetImage(PathConstants.iconBeginPressure),
+                        height: 40,
+                      ),
                     ),
-                  ), // text
+                  )
                 ],
               ),
             ),
-          ),
-        ),
-      )),
-    );
-  }
-
-  chooseOptionPressure(BuildContext context) {
-    final blocTabBar = BlocProvider.of<TabBarBloc>(context);
-    List<TypePressureData> typePressure = DataConstants.typepressure;
-    AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      content: Builder(
-        builder: (context) {
-          return Container(
-            height: 220,
-            width: 220,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 8),
-                PressureButton(
-                  title: typePressure[0].text ?? "",
-                  name: Icons.camera_alt,
-                  onTap: () async {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PressureCameraPage()));
-                  },
-                ),
-                const SizedBox(height: 12),
-                PressureButton(
-                    title: typePressure[1].text ?? "",
-                    name: Icons.watch,
-                    onTap: () {
-                      chooseDeviceAvailable(context);
-                    }),
-              ],
-            ),
-          );
-        },
-      ),
-      title: Text(TextConstants.chosseSelection),
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  chooseDeviceAvailable(BuildContext context) {
-    List<TypePressureData> typePressure = DataConstants.typepressure;
-    AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      content: Builder(
-        builder: (context) {
-          return Container(
-            height: 200,
-            width: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 8),
-                PressureButton(
-                  title: typePressure[0].text ?? "",
-                  name: Icons.camera_alt,
-                  onTap: () {},
-                ),
-                const SizedBox(height: 12),
-                PressureButton(
-                    title: typePressure[1].text ?? "",
-                    name: Icons.watch,
-                    onTap: () {}),
-              ],
-            ),
-          );
-        },
-      ),
-      title: Text(TextConstants.chosseDevice),
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  Widget _valueBPM(BuildContext context, TipBloc bloc) {
-    final valuebpm = TextConstants.namePressure;
-    final valuestatebpm = '60';
-    final date = DateTime.now();
-    final day = date.day;
-    final months = [
-      'Ene',
-      'Feb',
-      'Mar',
-      'Abr',
-      'May',
-      'Jun',
-      'Jul',
-      'Ago',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dic'
-    ];
-    final month = months[date.month - 1];
-    final year = date.year;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('$valuestatebpm', style: TextStyle(fontSize: 50)),
-                    const SizedBox(width: 10),
-                    Text('$valuebpm',
-                        style: TextStyle(
-                          fontSize: 18,
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 100),
-              Text('$day $month $year', style: TextStyle(fontSize: 14)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _graphValueBPM(BuildContext context, TipBloc bloc) {
-    //Osciloscopio
-    List<double> traceSine = [];
-    List<double> traceCosine = [];
-    double radians = 0.0;
-
-    var sv = sin((radians * pi));
-    //   var cv = cos((radians * pi));
-
-    traceSine.add(sv);
-    //traceCosine.add(cv);
-
-    radians += 0.05;
-    if (radians >= 2.0) {
-      radians = 0.0;
+          )
+      );
     }
-
-    Oscilloscope scopeOne = Oscilloscope(
-      showYAxis: true,
-      yAxisColor: Colors.black,
-      margin: EdgeInsets.all(20.0),
-      strokeWidth: 1.0,
-      backgroundColor: ColorConstants.homeBackgroundColor,
-      traceColor: Colors.green,
-      yAxisMax: 1.0,
-      yAxisMin: -1.0,
-      dataSet: traceSine,
-    );
-
-    // Generate the Scaffold
-    return Expanded(flex: 1, child: scopeOne);
-  }
-  //
-  // //osciloscopio
-  // _generateTrace(Timer t) {
-  //   // generate our  values
-  //   var sv = sin((radians * pi));
-  //   var cv = cos((radians * pi));
-  //
-  //   // Add to the growing dataset
-  //   setState(() {
-  //     traceSine.add(sv);
-  //     traceCosine.add(cv);
-  //   });
-  //
-  //   // adjust to recyle the radian value ( as 0 = 2Pi RADS)
-  //   radians += 0.05;
-  //   if (radians >= 2.0) {
-  //     radians = 0.0;
-  //   }
-  // }
-}

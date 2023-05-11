@@ -2,6 +2,7 @@ import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/data/exercise_data.dart';
 import 'package:your_pulse_health/data/pressure_data.dart';
+import 'package:your_pulse_health/data/tip_data.dart';
 import 'package:your_pulse_health/data/typepressure_data.dart';
 import 'package:your_pulse_health/data/workout_data.dart';
 import 'package:your_pulse_health/screens/onboarding/widget/onboarding_tile.dart';
@@ -64,6 +65,42 @@ class DataConstants {
         currentProgress: 12,
         progress: 14,
         image: PathConstants.tips,
+        exerciseDataList: []),
+  ];
+
+  static final List<TipData> tips = [
+    TipData(
+        id : 'tip1',
+        title: '¿No puede dormir?',
+        description: 'Todo el mundo tiene problemas para dormir en algunas ocasiones. Pero si esto sucede a menudo, la falta de sueño puede afectar su salud y hacer que sea difícil sobrellevar el día.',
+        exercises: TextConstants.reportsExercises,
+        textTip: '',
+        minutes: TextConstants.reportsMinutes,
+        currentProgress: 10,
+        progress: 16,
+        image: PathConstants.tip1,
+        exerciseDataList: [ ]),
+    TipData(
+        id : 'tip2',
+        title: TextConstants.recordsTitle,
+        description: '',
+        textTip: '',
+        exercises: TextConstants.recordsExercises,
+        minutes: TextConstants.recordsMinutes,
+        currentProgress: 1,
+        progress: 20,
+        image: PathConstants.tip1,
+        exerciseDataList: []),
+    TipData(
+        id : 'tip3',
+        title: TextConstants.tipsTitle,
+        description: '',
+        textTip: '',
+        exercises: TextConstants.tipsExercises,
+        minutes: TextConstants.tipsMinutes,
+        currentProgress: 12,
+        progress: 14,
+        image: PathConstants.tip1,
         exerciseDataList: []),
   ];
 

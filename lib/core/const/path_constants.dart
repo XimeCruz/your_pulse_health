@@ -61,4 +61,8 @@ class PathConstants {
 
   // Measurement Pressure
   static const String iconButtonPressure = 'assets/icons/pressure/heart_monitor.png';
+
+  //Tips Screen
+  static const String iconBeginPressure = 'assets/images/tip/beginHeart.png';
+  static const String tip1 = 'assets/images/tip/tip1.jpg';
 }

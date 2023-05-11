@@ -60,11 +60,11 @@ class _MyAppState extends State<MyApp> {
 
     // final isLoggedIn = FirebaseAuth.instance.currentUser != null;
 
-    final currUser = FirebaseAuth.instance.currentUser;
-    final isLoggedIn = currUser != null;
-    if (isLoggedIn) {
-      GlobalConstants.currentUser = UserData.fromFirebase(currUser);
-    }
+    // final currUser = FirebaseAuth.instance.currentUser;
+    // final isLoggedIn = currUser != null;
+    // if (isLoggedIn) {
+    //   GlobalConstants.currentUser = UserData.fromFirebase(currUser);
+    // }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
