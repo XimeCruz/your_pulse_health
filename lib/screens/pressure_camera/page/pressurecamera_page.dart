@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
-import 'package:your_pulse_health/screens/pressure/page/pressure_page.dart';
 import 'package:your_pulse_health/screens/pressure_camera/bloc/pressurecamera_bloc.dart';
 import 'package:your_pulse_health/screens/pressure_camera/widget/pressurecamera_content.dart';
-import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
 import 'package:your_pulse_health/screens/tab_bar/page/tab_bar_page.dart';
-import 'package:your_pulse_health/screens/workout_details_screen/page/workout_details_page.dart';
 import 'package:your_pulse_health/screens/pressure/bloc/pressure_bloc.dart';
-import 'package:your_pulse_health/screens/pressure/widget/pressure_content.dart';
 
 class PressureCameraPage extends StatelessWidget {
   const PressureCameraPage({Key? key}) : super(key: key);
