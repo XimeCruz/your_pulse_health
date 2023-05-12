@@ -54,36 +54,6 @@ class TipContent extends StatelessWidget {
               )
                   .toList(),
             ),
-            // child: ListView(
-            //   scrollDirection: Axis.vertical,
-            //   children: [
-            //     const SizedBox(height: 5),
-            //     WorkoutCard(
-            //         color: ColorConstants.armsColor,
-            //         workout: DataConstants.workouts[1],
-            //         onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            //             builder: (_) => WorkoutDetailsPage(
-            //               workout: DataConstants.workouts[2],
-            //             )))),
-            //     const SizedBox(height: 15),
-            //     WorkoutCard(
-            //         color: ColorConstants.armsColor,
-            //         workout: DataConstants.workouts[1],
-            //         onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            //             builder: (_) => WorkoutDetailsPage(
-            //               workout: DataConstants.workouts[2],
-            //             )))),
-            //     const SizedBox(height: 15),
-            //     WorkoutCard(
-            //         color: ColorConstants.armsColor,
-            //         workout: DataConstants.workouts[1],
-            //         onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            //             builder: (_) => WorkoutDetailsPage(
-            //               workout: DataConstants.workouts[2],
-            //             )))),
-            //     const SizedBox(width: 20),
-            //   ],
-            // ),
           ),
         ],
       ),

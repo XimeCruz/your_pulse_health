@@ -29,7 +29,7 @@ class TipDetailsPanel extends StatelessWidget {
               _createHeader(),
               const SizedBox(height: 30),
               _createWorkoutData(context),
-              SizedBox(height: 20),
+              SizedBox(height: 5),
               _createContentTip(),
             ],
           ),
@@ -107,6 +107,18 @@ class TipDetailsPanel extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Container(
+          height: 470,
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              Text(
+                  tip.textTip?? ""
+              ),
+            ],
+          ),
+        ),
+
         // child: ExercisesList(
         //   exercises: tip.exerciseDataList ?? [],
         //   workout: tip,

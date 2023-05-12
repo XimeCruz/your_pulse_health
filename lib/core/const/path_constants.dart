@@ -50,6 +50,7 @@ class PathConstants {
   // static const String facebook = 'assets/icons/social_networks/facebook_c.png';
   // static const String instagram = 'assets/icons/social_networks/instagram_c.png';
   // static const String twitter = 'assets/icons/social_networks/twitter_c.png';
+
   static const String facebook = 'assets/icons/social_networks/facebook_c2.png';
   static const String instagram = 'assets/icons/social_networks/instagram_c2.png';
   static const String twitter = 'assets/icons/social_networks/twitter_c2.png';
@@ -64,8 +65,12 @@ class PathConstants {
 
   //Tips Screen
   static const String iconBeginPressure = 'assets/images/tip/beginHeart.png';
-  static const String tip1 = 'assets/images/tip/tip1.jpg';
-  static const String tip2 = 'assets/images/tip/tip1.jpg';
-  static const String tip3 = 'assets/images/tip/tip1.jpg';
-  static const String tip4 = 'assets/images/tip/tip1.jpg';
+  static const String imageTip1 = 'assets/images/tip/tip1.jpg';
+  static const String imageTip2 = 'assets/images/tip/tip2.jpg';
+  static const String imageTip3 = 'assets/images/tip/tip3.jpg';
+  static const String imageTip4 = 'assets/images/tip/tip4.jpg';
+  static const String imageTip5 = 'assets/images/tip/tip5.jpg';
+  static const String imageTip6 = 'assets/images/tip/tip6.jpg';
+  static const String imageTip7 = 'assets/images/tip/tip7.jpg';
+  static const String imageTip8 = 'assets/images/tip/tip8.jpg';
 }
