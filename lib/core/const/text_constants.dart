@@ -207,6 +207,19 @@ class TextConstants {
   static const String beginTitleHome = "Antes de comenzar";
   static const String beginsubTitleHome = "Lea esto";
 
+
+  static const String tipsTitle1 = '¿No puede dormir?';
+  static const String tipsDescription1 = 'Todo el mundo tiene problemas para dormir en algunas ocasiones. Pero si esto sucede a menudo, la falta de sueño puede afectar su salud y hacer que sea difícil sobrellevar el día.';
+  static const String tipsTextTip1 = '';
+
+  static const String tipsTitle2 = '¿No puede dormir?';
+  static const String tipsDescription2 = '¿No puede dormir?';
+  static const String tipsTextTip2 = '¿No puede dormir?';
+
+  static const String tipsTitle3 = '¿No puede dormir?';
+  static const String tipsDescription3 = '¿No puede dormir?';
+  static const String tipsTextTip3 = '¿No puede dormir?';
+
   //Report Screen
   static const String reportTitleHome = "Reportes";
   static const String reportHome = "Antes de comenzar";

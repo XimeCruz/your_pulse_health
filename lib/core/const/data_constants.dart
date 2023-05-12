@@ -72,7 +72,7 @@ class DataConstants {
     TipData(
         id : 'tip1',
         title: '¿No puede dormir?',
-        description: 'Todo el mundo tiene problemas para dormir en algunas ocasiones. Pero si esto sucede a menudo, la falta de sueño puede afectar su salud y hacer que sea difícil sobrellevar el día.',
+        description: '',
         exercises: TextConstants.reportsExercises,
         textTip: '',
         minutes: TextConstants.reportsMinutes,
@@ -102,6 +102,34 @@ class DataConstants {
         progress: 14,
         image: PathConstants.tip1,
         exerciseDataList: []),
+  ];
+
+  static final List<PressureData> bpms = [
+    PressureData(
+        id: 'id1',
+        date: 'May 11, 12:10',
+        bpm: 65,
+        status: 'Normal'),
+    PressureData(
+        id: 'id1',
+        date: 'May 11, 12:10',
+        bpm: 65,
+        status: 'Normal'),
+    PressureData(
+        id: 'id1',
+        date: 'May 11, 12:10',
+        bpm: 65,
+        status: 'Normal'),
+    PressureData(
+        id: 'id1',
+        date: 'May 11, 12:10',
+        bpm: 65,
+        status: 'Normal'),
+    PressureData(
+        id: 'id1',
+        date: 'May 11, 12:10',
+        bpm: 65,
+        status: 'Normal'),
   ];
 
   // static final List<WorkoutData> workouts = [

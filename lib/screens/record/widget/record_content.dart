@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/data_constants.dart';
 import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
+import 'package:your_pulse_health/data/pressure_data.dart';
 import 'package:your_pulse_health/data/typepressure_data.dart';
 import 'package:your_pulse_health/screens/pressure/widget/pressure_button.dart';
 import 'package:oscilloscope/oscilloscope.dart';
 import 'package:your_pulse_health/screens/pressure_camera/page/pressurecamera_page.dart';
 import 'package:your_pulse_health/screens/record/bloc/record_bloc.dart';
+import 'package:your_pulse_health/screens/record/widget/pressure_card_bpm.dart';
 import 'dart:math';
 
 import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
@@ -21,286 +26,207 @@ class RecordContent extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  /// method to generate a Test  Wave Pattern Sets
-  /// this gives us a value between +1  & -1 for sine & cosine
-  // _generateTrace(Timer t) {
-  //   // generate our  values
-  //   var sv = sin((radians * pi));
-  //   var cv = cos((radians * pi));
-  //
-  //   // Add to the growing dataset
-  //   setState(() {
-  //     traceSine.add(sv);
-  //     traceCosine.add(cv);
-  //   });
-  //
-  //   // adjust to recyle the radian value ( as 0 = 2Pi RADS)
-  //   radians += 0.05;
-  //   if (radians >= 2.0) {
-  //     radians = 0.0;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       color: ColorConstants.homeBackgroundColor,
       height: double.infinity,
       width: double.infinity,
-      child: _createPressureBody(context),
+      child: _createRecordBody(context),
     );
   }
 
-  Widget _createPressureBody(BuildContext context) {
+  Widget _createRecordBody(BuildContext context) {
     final bloc = BlocProvider.of<RecordBloc>(context);
+    List<SalesData> _chartData = getChartData();
+    TooltipBehavior _tooltipBehavior =  TooltipBehavior(enable: true);
     return Padding(
-      padding: const EdgeInsets.only(top: 50),
+      padding: const EdgeInsets.only(top: 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Text('Presión',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          ),
-          const SizedBox(height: 90),
-          _valueBPM(context, bloc),
-          const SizedBox(height: 25),
-          _graphValueBPM(context, bloc),
-          const SizedBox(height: 25),
-          _buttonSelectType(context, bloc),
-          const SizedBox(height: 30),
-        ],
-      ),
-    );
-  }
-
-  Widget _buttonSelectType(BuildContext context, RecordBloc bloc) {
-    return Expanded(
-      child: Center(
-          child: SizedBox.fromSize(
-        size: Size(150, 150), // button width and height
-        child: ClipOval(
-          child: Material(
-            color: ColorConstants.primaryColor, // button color
-            child: InkWell(
-              splashColor: ColorConstants.reportColor, // splash color
-              onTap: () async {
-                chooseOptionPressure(context);
-              },
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image(
-                    image: AssetImage(
-                      PathConstants.iconButtonPressure,
-                    ),
-                    width: 30.0,
-                    height: 30.0,
-                  ),
-                  Text(
-                    TextConstants.pushPressure,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ), // text
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _selectionPeriod(context),
+                  SizedBox(height: 10,),
+                  _graphValue(context,_chartData,_tooltipBehavior),
+                  _listPressures(context)
                 ],
               ),
-            ),
+            )
+        ]
+      ),
+    );
+  }
+
+  Widget _selectionPeriod(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(width: 10,),
+        MaterialButton(
+          child: Text("Semana", style: TextStyle(color: ColorConstants.white),),
+          color: ColorConstants.primaryColor,
+          shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+          onPressed: (){ },
+        // shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+        ),
+        SizedBox(width: 10,),
+        MaterialButton(
+          child: Text("Mes", style: TextStyle(color: ColorConstants.white),),
+          color: ColorConstants.primaryColor,
+          shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+          onPressed: (){ },
+        // shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+        ),
+        SizedBox(width: 10,),
+        MaterialButton(
+          child: Text("Trimestre", style: TextStyle(color: ColorConstants.white),),
+          color: ColorConstants.primaryColor,
+          shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+          onPressed: (){ },
+        // shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+        ),
+        SizedBox(width: 10,),
+        TextButton(
+          child: const Icon(
+              Icons.calendar_today_rounded,
+              size: 35,
+              color: ColorConstants.primaryColor
+          ),
+          onPressed: () => showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => _showAlertDialog(context)
           ),
         ),
-      )),
+      ],
     );
   }
 
-  chooseOptionPressure(BuildContext context) {
-    final blocTabBar = BlocProvider.of<TabBarBloc>(context);
-    List<TypePressureData> typePressure = DataConstants.typepressure;
-    AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      content: Builder(
-        builder: (context) {
-          return Container(
-            height: 220,
-            width: 220,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 8),
-                PressureButton(
-                  title: typePressure[0].text ?? "",
-                  name: Icons.camera_alt,
-                  onTap: () async {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PressureCameraPage()));
-                  },
-                ),
-                const SizedBox(height: 12),
-                PressureButton(
-                    title: typePressure[1].text ?? "",
-                    name: Icons.watch,
-                    onTap: () {
-                      chooseDeviceAvailable(context);
-                    }),
-              ],
-            ),
-          );
-        },
+  Widget _showAlertDialog(BuildContext context) {
+
+    return AlertDialog(
+      title: const Text('Selecciona el rango de fecha'),
+      content: containerCalendar(context),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancelar'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('Seleccionar'),
+        ),
+      ],
+    );
+
+  }
+
+  Widget containerCalendar(BuildContext context) {
+    return Container(
+      width: 120,
+      height: 220,
+      child: SfDateRangePicker(
+        onSelectionChanged: _onSelectionChanged,
+        view: DateRangePickerView.month,
+        monthViewSettings: DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+        selectionMode: DateRangePickerSelectionMode.range,
       ),
-      title: Text(TextConstants.chosseSelection),
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
     );
   }
 
-  chooseDeviceAvailable(BuildContext context) {
-    List<TypePressureData> typePressure = DataConstants.typepressure;
-    AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      content: Builder(
-        builder: (context) {
-          return Container(
-            height: 200,
-            width: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 8),
-                PressureButton(
-                  title: typePressure[0].text ?? "",
-                  name: Icons.camera_alt,
-                  onTap: () {},
-                ),
-                const SizedBox(height: 12),
-                PressureButton(
-                    title: typePressure[1].text ?? "",
-                    name: Icons.watch,
-                    onTap: () {}),
-              ],
-            ),
-          );
-        },
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    print(args);
+    print(DateFormat('dd/MM/yyyy').format(args.value.startDate).toString());
+    print(DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)
+        .toString());
+  }
+
+  Widget _graphValue(BuildContext context, List<SalesData> chartData, TooltipBehavior tooltipBehavior, ) {
+    return SfCartesianChart(
+      title: ChartTitle(text: 'Ritmo Cardiaco'),
+      legend: Legend(isVisible: false),
+      tooltipBehavior: tooltipBehavior,
+      series: <ChartSeries>[
+        LineSeries<SalesData, double>(
+            name: 'BPM',
+            dataSource: chartData,
+            xValueMapper: (SalesData sales, _) => sales.year,
+            yValueMapper: (SalesData sales, _) => sales.sales,
+            dataLabelSettings: DataLabelSettings(isVisible: true),
+            enableTooltip: true)
+      ],
+      primaryXAxis: NumericAxis(
+        edgeLabelPlacement: EdgeLabelPlacement.shift,
       ),
-      title: Text(TextConstants.chosseDevice),
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
+      primaryYAxis: NumericAxis(
+          labelFormat: '{value}M',
+          numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
     );
   }
 
-  Widget _valueBPM(BuildContext context, RecordBloc bloc) {
-    final valuebpm = TextConstants.namePressure;
-    final valuestatebpm = '60';
-    final date = DateTime.now();
-    final day = date.day;
-    final months = [
-      'Ene',
-      'Feb',
-      'Mar',
-      'Abr',
-      'May',
-      'Jun',
-      'Jul',
-      'Ago',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dic'
-    ];
-    final month = months[date.month - 1];
-    final year = date.year;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('$valuestatebpm', style: TextStyle(fontSize: 50)),
-                    const SizedBox(width: 10),
-                    Text('$valuebpm',
-                        style: TextStyle(
-                          fontSize: 18,
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 100),
-              Text('$day $month $year', style: TextStyle(fontSize: 14)),
-            ],
+  Widget _listPressures(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 10,),
+        Row(
+          children: [
+            SizedBox(width: 10,),
+            Text(
+              "Medidas Tomadas",
+              style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        Container(
+          height: 230,
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: DataConstants.bpms
+                .map(
+                  (e) => _createBPMCard(e,context),
+            )
+                .toList(),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget _graphValueBPM(BuildContext context, RecordBloc bloc) {
-    //Osciloscopio
-    List<double> traceSine = [];
-    List<double> traceCosine = [];
-    double radians = 0.0;
+  Widget _createBPMCard(PressureData pressureData, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10,left: 20,right: 20,top: 10),
+      child: PressureHomeCard(
+        color: ColorConstants.primaryColor,
+        pressure: pressureData,
+        onTap: () {  },
 
-    var sv = sin((radians * pi));
-    //   var cv = cos((radians * pi));
-
-    traceSine.add(sv);
-    //traceCosine.add(cv);
-
-    radians += 0.05;
-    if (radians >= 2.0) {
-      radians = 0.0;
-    }
-
-    Oscilloscope scopeOne = Oscilloscope(
-      showYAxis: true,
-      yAxisColor: Colors.black,
-      margin: EdgeInsets.all(20.0),
-      strokeWidth: 1.0,
-      backgroundColor: ColorConstants.homeBackgroundColor,
-      traceColor: Colors.green,
-      yAxisMax: 1.0,
-      yAxisMin: -1.0,
-      dataSet: traceSine,
+      )
     );
-
-    // Generate the Scaffold
-    return Expanded(flex: 1, child: scopeOne);
   }
-  //
-  // //osciloscopio
-  // _generateTrace(Timer t) {
-  //   // generate our  values
-  //   var sv = sin((radians * pi));
-  //   var cv = cos((radians * pi));
-  //
-  //   // Add to the growing dataset
-  //   setState(() {
-  //     traceSine.add(sv);
-  //     traceCosine.add(cv);
-  //   });
-  //
-  //   // adjust to recyle the radian value ( as 0 = 2Pi RADS)
-  //   radians += 0.05;
-  //   if (radians >= 2.0) {
-  //     radians = 0.0;
-  //   }
-  // }
+
+  List<SalesData> getChartData() {
+    final List<SalesData> chartData = [
+      SalesData(2017, 25),
+      SalesData(2018, 12),
+      SalesData(2019, 24),
+      SalesData(2020, 18),
+      SalesData(2021, 30)
+    ];
+    return chartData;
+  }
+}
+
+class SalesData {
+  SalesData(this.year, this.sales);
+  final double year;
+  final double sales;
 }

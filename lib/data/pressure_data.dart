@@ -4,17 +4,20 @@ class PressureData {
   String? id;
   String? date;
   int? bpm;
+  String? status;
 
   PressureData({
     required this.id,
     required this.date,
     required this.bpm,
+    required this.status
   });
 
   PressureData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     date = json['date'];
     bpm = json['bpm'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +25,7 @@ class PressureData {
     data['id'] = this.id;
     data['date'] = this.date;
     data['bpm'] = this.bpm;
+    data['status'] = this.status;
     return data;
   }
 

@@ -65,4 +65,7 @@ class PathConstants {
   //Tips Screen
   static const String iconBeginPressure = 'assets/images/tip/beginHeart.png';
   static const String tip1 = 'assets/images/tip/tip1.jpg';
+  static const String tip2 = 'assets/images/tip/tip1.jpg';
+  static const String tip3 = 'assets/images/tip/tip1.jpg';
+  static const String tip4 = 'assets/images/tip/tip1.jpg';
 }
