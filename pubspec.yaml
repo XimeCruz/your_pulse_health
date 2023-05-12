@@ -70,8 +70,9 @@ dependencies:
   heart_bpm: ^1.1.1+0
 
   #Range dates
+  syncfusion_flutter_datepicker: 20.4.44
   #syncfusion_flutter_datepicker: ^21.1.35
-#  intl: ^0.17.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

@@ -207,4 +207,10 @@ class TextConstants {
   static const String beginTitleHome = "Antes de comenzar";
   static const String beginsubTitleHome = "Lea esto";
 
+  //Report Screen
+  static const String reportTitleHome = "Reportes";
+  static const String reportHome = "Antes de comenzar";
+  static const String reportsubTitleHome = "Lea esto";
+
+
 }
