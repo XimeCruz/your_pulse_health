@@ -47,3 +47,5 @@ class ChangeBPMState extends PressureCameraState{
     required this.isBPMEnabled
   });
 }
+
+

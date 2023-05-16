@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
+import 'package:your_pulse_health/core/service/bpm_service.dart';
 import 'package:your_pulse_health/screens/record/bloc/record_bloc.dart';
 import 'package:your_pulse_health/screens/record/widget/record_content.dart';
 
@@ -37,24 +38,16 @@ class RecordPage extends StatelessWidget {
 
   BlocProvider<RecordBloc> _buildContext(BuildContext context) {
     return BlocProvider<RecordBloc>(
-      create: (BuildContext context) => RecordBloc(),
+      create: (BuildContext context) => RecordBloc(BpmService())..add(GetPressureEvent()),
       child: BlocConsumer<RecordBloc, RecordState>(
-        buildWhen: (_, currState) =>
-            currState is RecordInitial ||
-            currState is TypePressureMeasurementState,
-        //currState is PressureInitial,
         builder: (context, state) {
-          final bloc = BlocProvider.of<RecordBloc>(context);
-          if (state is RecordInitial) {
-            bloc.add(RecordInitialEvent());
-            //bloc.add(ReloadDisplayNameEvent());
-            //bloc.add(ReloadImageEvent());
+          if (state is PressureDataState){
+            return RecordContent(
+                pressureData: state.pressuredata
+            );
           }
-          return RecordContent(
-            typepressures: bloc.typepressure,
-            // traceSine: [],
-            // traceCosine: [],
-            // radians: 0,);
+          return Center(
+              child: CircularProgressIndicator(),
           );
         },
         listenWhen: (_, currState) => true,

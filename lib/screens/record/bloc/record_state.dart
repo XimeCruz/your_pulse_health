@@ -5,24 +5,10 @@ abstract class RecordState {}
 
 class RecordInitial extends RecordState {}
 
-// class CardTappedState extends PressureState {
-//   final WorkoutData workout;
-//
-//   CardTappedState({required this.workout});
-// }
-//
-// class ReloadPressureState extends PressureState {
-//   final List<WorkoutData> Pressure;
-//
-//   ReloadPressureState({
-//     required this.Pressure,
-//   });
-// }
+class PressureDataState extends RecordState {
+  final List<PressureData> pressuredata;
 
-class TypePressureMeasurementState extends RecordState {
-  final List<TypePressureData> typepressures;
-
-  TypePressureMeasurementState({
-    required this.typepressures,
+  PressureDataState({
+    required this.pressuredata,
   });
 }

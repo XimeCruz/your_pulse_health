@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
@@ -31,6 +33,7 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
   List<SensorValue> data = [];
   List<SensorValue> bpmValues = [];
   int valuestatebpm = 60;
+  Timer? timer;
   //Widget chart = BPMChart(data);
 
   bool isBPMEnabled = false;
@@ -38,6 +41,21 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
 
   /// variable to store measured BPM value
   //int bpmValue;
+
+  // @override
+  // void initState() {
+  //   timer = Timer.periodic(Duration(seconds: 15), (timer) {BlocProvider.of<PressureCameraBloc>(context).add(SaveBpmEvent(pressureBpm: valuestatebpm)); });
+  //
+  //   super.initState();
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   if(timer!=null){
+  //     timer!.cancel();
+  //   }
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +119,15 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
                           color: ColorConstants.primaryColor, // button color
                           child: InkWell(
                             splashColor: ColorConstants.reportColor,
-                            onTap: () => setState(() => isBPMEnabled = !isBPMEnabled),
+                            onTap: () =>
+                                setState((){
+                                  BlocProvider.of<PressureCameraBloc>(context).add(SaveBpmEvent(pressureBpm: valuestatebpm));
+                                  isBPMEnabled = !isBPMEnabled;
+                                  if(!isBPMEnabled){
+                                    timer!.cancel();
+                                  }
+                                }
+                                ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[

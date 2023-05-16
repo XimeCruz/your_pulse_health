@@ -160,31 +160,31 @@ class DataConstants {
   ];
 
   static final List<PressureData> bpms = [
-    PressureData(
-        id: 'id1',
-        date: 'May 11, 12:10',
-        bpm: 65,
-        status: 'Normal'),
-    PressureData(
-        id: 'id1',
-        date: 'May 11, 12:10',
-        bpm: 65,
-        status: 'Normal'),
-    PressureData(
-        id: 'id1',
-        date: 'May 11, 12:10',
-        bpm: 65,
-        status: 'Normal'),
-    PressureData(
-        id: 'id1',
-        date: 'May 11, 12:10',
-        bpm: 65,
-        status: 'Normal'),
-    PressureData(
-        id: 'id1',
-        date: 'May 11, 12:10',
-        bpm: 65,
-        status: 'Normal'),
+    // PressureData(
+    //     id: 'id1',
+    //     date: 'May 11, 12:10',
+    //     bpm: 65,
+    //     status: 'Normal'),
+    // PressureData(
+    //     id: 'id1',
+    //     date: 'May 11, 12:10',
+    //     bpm: 65,
+    //     status: 'Normal'),
+    // PressureData(
+    //     id: 'id1',
+    //     date: 'May 11, 12:10',
+    //     bpm: 65,
+    //     status: 'Normal'),
+    // PressureData(
+    //     id: 'id1',
+    //     date: 'May 11, 12:10',
+    //     bpm: 65,
+    //     status: 'Normal'),
+    // PressureData(
+    //     id: 'id1',
+    //     date: 'May 11, 12:10',
+    //     bpm: 65,
+    //     status: 'Normal'),
   ];
 
   // static final List<WorkoutData> workouts = [

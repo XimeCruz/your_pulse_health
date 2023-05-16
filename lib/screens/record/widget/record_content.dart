@@ -19,10 +19,10 @@ import 'dart:math';
 import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
 
 class RecordContent extends StatelessWidget {
-  final List<TypePressureData> typepressures;
+  final List<PressureData> pressureData;
 
   const RecordContent({
-    required this.typepressures,
+    required this.pressureData,
     Key? key,
   }) : super(key: key);
 
@@ -37,7 +37,7 @@ class RecordContent extends StatelessWidget {
   }
 
   Widget _createRecordBody(BuildContext context) {
-    final bloc = BlocProvider.of<RecordBloc>(context);
+    //final bloc = BlocProvider.of<RecordBloc>(context);
     List<SalesData> _chartData = getChartData();
     TooltipBehavior _tooltipBehavior =  TooltipBehavior(enable: true);
     return Padding(
@@ -72,7 +72,7 @@ class RecordContent extends StatelessWidget {
           shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
-          onPressed: (){ },
+          onPressed: (){ BlocProvider.of<RecordBloc>(context).add(GetPressureEvent(filterDate: DateFilter.semana));},
         // shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
         ),
         SizedBox(width: 10,),
@@ -82,7 +82,7 @@ class RecordContent extends StatelessWidget {
           shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
-          onPressed: (){ },
+          onPressed: (){ BlocProvider.of<RecordBloc>(context).add(GetPressureEvent(filterDate: DateFilter.mes));},
         // shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
         ),
         SizedBox(width: 10,),
@@ -92,7 +92,7 @@ class RecordContent extends StatelessWidget {
           shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
-          onPressed: (){ },
+          onPressed: (){BlocProvider.of<RecordBloc>(context).add(GetPressureEvent(filterDate: DateFilter.trimestre)); },
         // shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
         ),
         SizedBox(width: 10,),
@@ -190,7 +190,8 @@ class RecordContent extends StatelessWidget {
           height: 230,
           child: ListView(
             scrollDirection: Axis.vertical,
-            children: DataConstants.bpms
+            children: pressureData
+    //children: DataConstants.bpms
                 .map(
                   (e) => _createBPMCard(e,context),
             )

@@ -2,12 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:your_pulse_health/data/workout_data.dart';
 
 class UserData {
+  String? uuid;
   String? name;
   String? photo;
   String? mail;
   List<WorkoutData>? workouts;
 
   UserData({
+    required this.uuid,
     required this.name,
     required this.photo,
     required this.mail,
@@ -15,6 +17,7 @@ class UserData {
   });
 
   UserData.fromJson(Map<String, dynamic> json) {
+    uuid = json['uid'];
     name = json['name'];
     photo = json['photo'];
     mail = json['mail'];
@@ -40,6 +43,7 @@ class UserData {
   static fromFirebase(User? user) {
     return user != null
         ? UserData(
+      uuid: user.uid,
       name: user.displayName ?? "",
       photo: user.photoURL ?? "",
       mail: user.email ?? "",

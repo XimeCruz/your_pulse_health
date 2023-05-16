@@ -18,3 +18,8 @@ class ChangeBPMEvent extends PressureCameraEvent{
   ChangeBPMEvent({required this.isBPMEnabled});
 
 }
+
+class SaveBpmEvent extends PressureCameraEvent{
+  final int pressureBpm;
+  SaveBpmEvent({required this.pressureBpm});
+}
