@@ -92,7 +92,9 @@ class RecordContent extends StatelessWidget {
           shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
-          onPressed: (){BlocProvider.of<RecordBloc>(context).add(GetPressureEvent(filterDate: DateFilter.trimestre)); },
+          onPressed: (){
+            BlocProvider.of<RecordBloc>(context).add(GetPressureEvent(filterDate: DateFilter.trimestre));
+          },
         // shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
         ),
         SizedBox(width: 10,),
@@ -122,7 +124,12 @@ class RecordContent extends StatelessWidget {
           child: const Text('Cancelar'),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
+          onPressed: (){
+            Navigator.pop(context, 'OK');
+            //
+            //
+            //BlocProvider.of<RecordBloc>(context).add(GetPressureEvent(filterDate: DateFilter.trimestre));
+          },
           child: const Text('Seleccionar'),
         ),
       ],
@@ -145,6 +152,7 @@ class RecordContent extends StatelessWidget {
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     print(args);
+    //fecha seleccionada
     print(DateFormat('dd/MM/yyyy').format(args.value.startDate).toString());
     print(DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)
         .toString());
@@ -187,7 +195,7 @@ class RecordContent extends StatelessWidget {
           ],
         ),
         Container(
-          height: 230,
+          height: 330,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: pressureData
@@ -204,7 +212,7 @@ class RecordContent extends StatelessWidget {
 
   Widget _createBPMCard(PressureData pressureData, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10,left: 20,right: 20,top: 10),
+      padding: const EdgeInsets.only(bottom: 5,left: 20,right: 20,top: 5),
       child: PressureHomeCard(
         color: ColorConstants.primaryColor,
         pressure: pressureData,

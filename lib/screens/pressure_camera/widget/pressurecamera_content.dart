@@ -45,7 +45,7 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
   // @override
   // void initState() {
   //   timer = Timer.periodic(Duration(seconds: 15), (timer) {BlocProvider.of<PressureCameraBloc>(context).add(SaveBpmEvent(pressureBpm: valuestatebpm)); });
-  //
+  //  cada 15 segundos
   //   super.initState();
   // }
   //
@@ -74,7 +74,7 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
         crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            _valueBPM(context,valuestatebpm),
+            _valueBPM(context,valuestatebpm, isBPMEnabled),
             const SizedBox(height: 25),
             isBPMEnabled
                 ? HeartBPMDialog(
@@ -95,20 +95,21 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
               }),
             )
                 : _graphValueBPM(context),
-            // isBPMEnabled && data.isNotEmpty
+            isBPMEnabled && data.isNotEmpty
+                ? Container(
+
+                    //decoration: BoxDecoration(border: Border.all()),
+                    height: 180,
+                    child: BPMChart(data),
+                  )
+                : SizedBox(),
+            // isBPMEnabled && bpmValues.isNotEmpty
             //     ? Container(
             //   decoration: BoxDecoration(border: Border.all()),
-            //   height: 180,
-            //   child: BPMChart(data),
+            //   constraints: BoxConstraints.expand(height: 180),
+            //   child: BPMChart(bpmValues),
             // )
             //     : SizedBox(),
-            isBPMEnabled && bpmValues.isNotEmpty
-                ? Container(
-              decoration: BoxDecoration(border: Border.all()),
-              constraints: BoxConstraints.expand(height: 180),
-              child: BPMChart(bpmValues),
-            )
-                : SizedBox(),
             //boton
             Expanded(
                 child: Center(
@@ -180,7 +181,7 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
       yAxisColor: Colors.black,
       margin: EdgeInsets.all(20.0),
       strokeWidth: 1.0,
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConstants.homeBackgroundColor,
       traceColor: Colors.green,
       yAxisMax: 1.0,
       yAxisMin: -1.0,
@@ -191,59 +192,6 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
     return Expanded(flex: 1, child: scopeOne);
   }
 }
-
-  // _generateTrace(Timer t) {
-  //   // generate our  values
-  //   var sv = sin((radians * pi));
-  //   var cv = cos((radians * pi));
-  //
-  //   // Add to the growing dataset
-  //   setState(() {
-  //     traceSine.add(sv);
-  //     traceCosine.add(cv);
-  //   });
-  //
-  //   // adjust to recyle the radian value ( as 0 = 2Pi RADS)
-  //   radians += 0.05;
-  //   if (radians >= 2.0) {
-  //     radians = 0.0;
-  //   }
-  // }
-
-
-
-  //BLOC
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Container(
-  //     color: ColorConstants.homeBackgroundColor,
-  //     height: double.infinity,
-  //     width: double.infinity,
-  //     child: _createPressureBody(context),
-  //   );
-  // }
-  //
-  // Widget _createPressureBody(BuildContext context) {
-  //   final bloc = BlocProvider.of<PressureCameraBloc>(context);
-  //   return Padding(
-  //     padding: const EdgeInsets.only(top: 50),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //             const SizedBox(height: 20),
-  //             _valueBPM(context, bloc),
-  //             const SizedBox(height: 25),
-  //             _graphValueBPM(context,bloc),
-  //             const SizedBox(height: 25),
-  //             _buttonSelectType(context,bloc),
-  //             const SizedBox(height: 30),
-  //           ],
-  //         ),
-  //       );
-  // }
-
-
-
   chooseOptionPressure(BuildContext context) {
     List<TypePressureData> typePressure = DataConstants.typepressure;
     // set up the AlertDialog
@@ -344,7 +292,7 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
   }
 
 
-  Widget _valueBPM(BuildContext context, int valuestatebpm){
+  Widget _valueBPM(BuildContext context, int valuestatebpm, bool isBPMEnabled){
       final valuebpm = TextConstants.namePressure;
 
       final date = DateTime.now();
@@ -363,15 +311,18 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('$valuestatebpm',
-                          style: TextStyle(fontSize: 50)),
-                      const SizedBox(width: 10),
+                      Container(
+                        width: 80.0,
+                        child: Text(isBPMEnabled ? '$valuestatebpm' :"0",
+                            style: TextStyle(fontSize: 40)),
+                      ),
+                      const SizedBox(width: 5),
                       Text('$valuebpm',
                           style: TextStyle(fontSize: 18, )),
                     ],
                   ),
                 ),
-                const SizedBox(width: 80),
+                const SizedBox(width: 95),
                 Text('$day $month $year',
                     style: TextStyle(fontSize: 14)),
               ],

@@ -21,10 +21,10 @@ class PressureHomeCard extends StatelessWidget {
         //padding: const EdgeInsets.all(0),
         padding: const EdgeInsets.only(
           left: 20,
-          top: 10,
+          top: 5,
           right: 12,
         ),
-        height: 90,
+        height: 100,
         width: screenWidth * 0.6,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),

@@ -15,16 +15,8 @@ class PressureButton extends StatelessWidget {
       width: double.infinity,
       child:
       ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) {
-                return Theme.of(context).colorScheme.primary.withOpacity(0.5);
-              }
-              return null; // Use the component's default.
-            },
-          ),
-
+        style: ElevatedButton.styleFrom(
+          primary: ColorConstants.primaryColor,
         ),
         child: Column(
           children: [

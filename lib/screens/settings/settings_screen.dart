@@ -155,7 +155,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   );
                 }),
             SizedBox(height: 15),
-            Text(TextConstants.joinUs, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            Text(TextConstants.joinUs,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: ColorConstants.primaryColor
+                )
+            ),
             SizedBox(height: 15),
             _createJoinSocialMedia()
           ]),

@@ -26,6 +26,8 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     } else if (event is GetPressureEvent) {
       DateTime? dateStart;
       DateTime? dateEnd;
+
+      DateTime today = DateTime.now();
       if(event.filterDate!=null){
         switch(event.filterDate){
           case DateFilter.semana:

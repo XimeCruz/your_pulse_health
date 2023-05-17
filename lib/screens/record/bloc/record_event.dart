@@ -13,7 +13,7 @@ class RecordInitialEvent extends RecordEvent {}
 
 class GraphEvent extends RecordEvent {}
 
-enum DateFilter{semana,mes,trimestre}
+enum DateFilter{semana,mes,trimestre,}
 
 class GetPressureEvent extends RecordEvent{
   final DateFilter? filterDate;

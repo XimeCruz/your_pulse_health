@@ -77,6 +77,7 @@ class HomeContent extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      color: ColorConstants.primaryColor
                     ),
                   );
                 },
@@ -176,20 +177,9 @@ class HomeContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 20),
-        //   child: Text(
-        //     TextConstants.discoverWorkouts,
-        //     style: TextStyle(
-        //       color: ColorConstants.textBlack,
-        //       fontSize: 18,
-        //       fontWeight: FontWeight.bold,
-        //     ),
-        //   ),
-        // ),
         const SizedBox(height: 5),
         Container(
-          height: 160,
+          height: 210,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [

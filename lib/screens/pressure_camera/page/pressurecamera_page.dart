@@ -20,7 +20,7 @@ class PressureCameraPage extends StatelessWidget {
         titleSpacing: 0,
         title: Text(
           TextConstants.pressurebycamera,
-          style: TextStyle(color: Colors.black, fontSize: 18),
+          style: TextStyle(color: ColorConstants.primaryColor, fontSize: 18),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -32,10 +32,6 @@ class PressureCameraPage extends StatelessWidget {
           onPressed: () async {
             await Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarPage()));
           },
-          // onPressed: () {
-          //   blocTabBar.add(
-          //       TabBarItemTappedEvent(index: blocTabBar.currentIndex = 1));
-          // },
         ),
       ),
     );
@@ -52,14 +48,9 @@ class PressureCameraPage extends StatelessWidget {
           final bloc = BlocProvider.of<PressureCameraBloc>(context);
           if (state is PressureInitial) {
             bloc.add(PressureCameraInitialEvent());
-            //bloc.add(ReloadDisplayNameEvent());
-            //bloc.add(ReloadImageEvent());
           }
           return PressureCameraContent(
             typepressures: bloc.typePressureCamera,
-            // traceSine: [],
-            // traceCosine: [],
-            // radians: 0,);
           );
         },
         listenWhen: (_, currState) => true,

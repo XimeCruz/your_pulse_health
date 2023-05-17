@@ -196,7 +196,7 @@ class TextConstants {
 
   //Measurement Pressure Camera
   static const pressurebycamera = 'Toma de presión por camara';
-  static const stopPressure = 'Dejar de medir';
+  static const stopPressure = 'Detener';
 
   //Notifications
   static const nameApplication = 'Your Pulse';
@@ -216,7 +216,7 @@ class TextConstants {
       ' a la misma hora todas las noches entrena a su cuerpo y cerebro para relajarse y prepararse para el sueño. Levántese si no puede dormir. Si se mantiene despierto por 15 minutos, salga de la cama y vaya a otra'
       ' parte de la casa. De esta forma será menos probable que su cama se convierta en un lugar que provoque estrés.'
       'Haga algo tranquilo y relajante como leer un libro. Esto también puede ayudar a distraerlo del hecho de que no está durmiendo. Cuando se sienta somnoliento, regrese a la cama. Haga su habitación cómoda: Consiga'
-      ' un colchón cómodo. Si su colchón es disparejo, demasiado suave o demasiado duro, será difícil sentirse suficientemente cómodo para dormir. Manténgase fresco. Su temperatura corporal desciende cuando duerme. '
+      ' un colchón cómodo. SiF su colchón es disparejo, demasiado suave o demasiado duro, será difícil sentirse suficientemente cómodo para dormir. Manténgase fresco. Su temperatura corporal desciende cuando duerme. '
       'Asegúrese de que su habitación sea lo suficientemente fresca, pero no tanto como para que se despierte con frío. Experimente con el termostato y cobijas para encontrar la temperatura que funciona para usted.'
       'Controle la luz. La luz que proviene de la calle, una televisión o el cuarto de al lado puede hacer que sea difícil mantenerse dormido. Utilice cortinas y puertas para oscurecer su habitación de manera que '
       'pueda dormir. También puede intentar con el uso de un antifaz para dormir. Controle los sonidos. Asegúrese de que su habitación sea tan silenciosa como sea posible. Puede utilizar un ventilador, música suave'

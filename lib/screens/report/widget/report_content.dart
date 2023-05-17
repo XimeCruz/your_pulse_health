@@ -110,7 +110,7 @@ class ReportContent extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.lightBlue,
+              color: ColorConstants.primaryColor,
               borderRadius: BorderRadius.circular(15)
             ),
             //color: Colors.lightBlue,

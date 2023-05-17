@@ -36,25 +36,15 @@ class PressureCameraBloc extends Bloc<PressureCameraEvent, PressureCameraState> 
     else if(event is SaveBpmEvent){
 
       String statusNew ='';
-      if (event.pressureBpm <60){
+      if (event.pressureBpm >=60 && event.pressureBpm <=100){
         statusNew ='Normal';
+      }
+      else if(event.pressureBpm > 100 || event.pressureBpm < 60){
+        statusNew ='Arritmia';
       }
       PressureData pressureData = PressureData(id: '', userId: GlobalConstants.currentUser.uuid,date: DateTime.now(), bpm: event.pressureBpm, status: statusNew);
       await bpmService.saveBpmPressure(pressureData);
     }
-    // } else if (event is ReloadImageEvent) {
-    //   String? photoURL = await UserStorageService.readSecureData('image');
-    //   if (photoURL == null) {
-    //     photoURL = AuthService.auth.currentUser?.photoURL;
-    //     photoURL != null
-    //         ? await UserStorageService.writeSecureData('image', photoURL)
-    //         : print('sin imagen de usuario');
-    //   }
-    //   yield ReloadImageState(photoURL: photoURL);
-    // } else if (event is ReloadDisplayNameEvent) {
-    //   final displayName = await UserStorageService.readSecureData('name');
-    //   yield ReloadDisplayNameState(displayName: displayName);
-    // }
   }
 
 }

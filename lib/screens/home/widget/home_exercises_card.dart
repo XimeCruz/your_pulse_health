@@ -54,13 +54,14 @@ class WorkoutCard extends StatelessWidget {
             ),
             Positioned(
               right: 0,
-              bottom: 10,
+              bottom: 0,
+              top:10,
               child: Image(
                 image: AssetImage(
                     "${workout.image}"
                 ),
-                width: 95.0,
-                height: 95.0,
+                width: 200.0,
+                height: 200.0,
               ),
             ),
           ],

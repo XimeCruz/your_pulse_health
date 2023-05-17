@@ -17,7 +17,7 @@ class PathConstants {
   // Home
   static const String pressureDo = 'assets/images/home/cardiaPressure.png';
   //static const String profile = 'assets/images/home/profile.png';
-  static const String profile = 'assets/images/home/profile_c.png';
+  static const String profile = 'assets/images/home/profile_user.png';
   static const String finished = 'assets/images/home/finished.png';
   static const String inProgress = 'assets/icons/home/inProgress.png';
   static const String timeSent = 'assets/icons/home/time.png';
@@ -42,6 +42,9 @@ class PathConstants {
   static const String reports = 'assets/images/home/reports.png';
   static const String records = 'assets/images/home/records.png';
   static const String tips = 'assets/images/home/tips.png';
+  static const String reports1 = 'assets/images/home/reports2.png';
+  static const String records1 = 'assets/images/home/record2.png';
+  static const String tips1 = 'assets/images/home/tip2.png';
 
   //social networks
   // static const String facebook = 'assets/icons/social_networks/facebook.png';

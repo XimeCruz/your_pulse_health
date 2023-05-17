@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/util/heart_bpm/heart_bpm.dart';
 
 
@@ -30,11 +31,12 @@ class BPMChart extends StatelessWidget {
     return charts.Series<SensorValue, DateTime>(
       id: "BPM",
       colorFn: (datum, index) => seriesNumber == 1
-          ? charts.MaterialPalette.blue.shadeDefault
+          ? charts.ColorUtil.fromDartColor(ColorConstants.primaryColor)
           : charts.MaterialPalette.green.shadeDefault,
       domainFn: (datum, index) => datum.time,
       measureFn: (datum, index) => datum.value,
       data: data,
+      //seriesColor: charts.ColorUtil.fromDartColor(ColorConstants.primaryColor),
     );
   }
 
@@ -51,6 +53,7 @@ class BPMChart extends StatelessWidget {
         (value.value > element.value) ? value : element)
             .value;
 
+
     return charts.TimeSeriesChart(
       _data,
       primaryMeasureAxis: charts.NumericAxisSpec(
@@ -66,10 +69,10 @@ class BPMChart extends StatelessWidget {
       domainAxis: charts.DateTimeAxisSpec(
         renderSpec: charts.NoneRenderSpec(),
         showAxisLine: false,
-        // viewport: charts.DateTimeExtents(
-        //   start: _data[0].data.first.time,
-        //   end: _data[0].data.last.time,
-        // ),
+        viewport: charts.DateTimeExtents(
+          start: _data[0].data.first.time,
+          end: _data[0].data.last.time,
+        ),
         // tickProviderSpec: charts.AutoDateTimeTickProviderSpec(),
       ),
       // Optionally pass in a [DateTimeFactory] used by the chart. The factory

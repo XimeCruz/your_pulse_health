@@ -5,20 +5,6 @@ abstract class PressureCameraState {}
 
 class PressureCameraInitial extends PressureCameraState {}
 
-// class CardTappedState extends PressureCameraState {
-//   final WorkoutData workout;
-//
-//   CardTappedState({required this.workout});
-// }
-//
-// class ReloadPressureCameraState extends PressureCameraState {
-//   final List<WorkoutData> Pressure;
-//
-//   ReloadPressureCameraState({
-//     required this.Pressure,
-//   });
-// }
-
 class TypePressureCameraMeasurementState extends PressureCameraState{
   final List<TypePressureData> typepressures;
 

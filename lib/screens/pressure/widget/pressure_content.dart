@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/data_constants.dart';
 import 'package:your_pulse_health/core/const/path_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/data/typepressure_data.dart';
-import 'package:your_pulse_health/screens/common_widgets/pulse_button.dart';
+import 'package:your_pulse_health/screens/bluetooth_config/page/bluetooth_page.dart';
+import 'package:your_pulse_health/screens/bluetooth_config/page/discovery_page.dart';
 import 'package:your_pulse_health/screens/pressure/bloc/pressure_bloc.dart';
 import 'package:your_pulse_health/screens/pressure/widget/pressure_button.dart';
-import 'package:your_pulse_health/screens/pressure/widget/pressure_card.dart';
 import 'package:oscilloscope/oscilloscope.dart';
 import 'package:your_pulse_health/screens/pressure_camera/page/pressurecamera_page.dart';
-import 'dart:async';
 import 'dart:math';
 
 import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
@@ -24,30 +24,6 @@ class PressureContent extends StatelessWidget {
     required this.typepressures,
     Key? key,
   }) : super(key: key);
-
-
-
-
-
-  /// method to generate a Test  Wave Pattern Sets
-  /// this gives us a value between +1  & -1 for sine & cosine
-  // _generateTrace(Timer t) {
-  //   // generate our  values
-  //   var sv = sin((radians * pi));
-  //   var cv = cos((radians * pi));
-  //
-  //   // Add to the growing dataset
-  //   setState(() {
-  //     traceSine.add(sv);
-  //     traceCosine.add(cv);
-  //   });
-  //
-  //   // adjust to recyle the radian value ( as 0 = 2Pi RADS)
-  //   radians += 0.05;
-  //   if (radians >= 2.0) {
-  //     radians = 0.0;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +45,12 @@ class PressureContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text('Presión',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: ColorConstants.primaryColor
+                    )
+                ),
               ),
               const SizedBox(height: 90),
               _valueBPM(context, bloc),
@@ -134,7 +115,7 @@ class PressureContent extends StatelessWidget {
       content: Builder(
         builder: (context) {
           return Container(
-            height: 200,
+            height: 230,
             width: 200,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -150,10 +131,23 @@ class PressureContent extends StatelessWidget {
                 const SizedBox(height: 12),
                 PressureButton(
                     title: typePressure[1].text ?? "",
-                    name: Icons.watch,
-                    onTap: (){
-                      chooseDeviceAvailable(context);
+                    name: Icons.monitor_heart,
+                    onTap: () async {
+                    final BluetoothDevice? selectedDevice =
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DiscoveryPage();
+                        },
+                      ),
+                    );
+                    if (selectedDevice != null) {
+                      print('Discovery -> selected ' + selectedDevice.address);
+                      _startChat(context, selectedDevice);
+                    } else {
+                      print('Discovery -> no device selected');
                     }
+                  },
                 ),
               ],
             ),
@@ -168,6 +162,17 @@ class PressureContent extends StatelessWidget {
       builder: (BuildContext context) {
         return alert;
       },
+    );
+  }
+
+  void _startChat(BuildContext context, BluetoothDevice server) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return BluetoothPage(server: server);
+          //return GraphData(server: server);
+        },
+      ),
     );
   }
 

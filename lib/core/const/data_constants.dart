@@ -46,7 +46,7 @@ class DataConstants {
         minutes: TextConstants.reportsMinutes,
         currentProgress: 10,
         progress: 16,
-        image: PathConstants.reports,
+        image: PathConstants.reports1,
         exerciseDataList: [ ]),
     WorkoutData(
         id : 'workout2',
@@ -55,7 +55,7 @@ class DataConstants {
         minutes: TextConstants.recordsMinutes,
         currentProgress: 1,
         progress: 20,
-        image: PathConstants.records,
+        image: PathConstants.records1,
         exerciseDataList: []),
     WorkoutData(
         id : 'workout3',
@@ -64,7 +64,7 @@ class DataConstants {
         minutes: TextConstants.tipsMinutes,
         currentProgress: 12,
         progress: 14,
-        image: PathConstants.tips,
+        image: PathConstants.tips1,
         exerciseDataList: []),
   ];
 
@@ -429,7 +429,7 @@ class DataConstants {
   //Type pressure
   static final List<TypePressureData> typepressure = [
     TypePressureData(name: 'Celular', text: 'Medir por la cámara del celular'),
-    TypePressureData(name: 'Wearable and Device', text:'Medir por un smartwatch o el dispositivo ECG')
+    TypePressureData(name: 'Oximeter and Device', text:'Medir por el oximetro o el dispositivo ECG')
   ];
 
 }
