@@ -4,19 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
-import 'package:your_pulse_health/core/const/data_constants.dart';
-import 'package:your_pulse_health/core/const/path_constants.dart';
-import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/data/pressure_data.dart';
-import 'package:your_pulse_health/data/typepressure_data.dart';
-import 'package:your_pulse_health/screens/pressure/widget/pressure_button.dart';
-import 'package:oscilloscope/oscilloscope.dart';
-import 'package:your_pulse_health/screens/pressure_camera/page/pressurecamera_page.dart';
 import 'package:your_pulse_health/screens/record/bloc/record_bloc.dart';
 import 'package:your_pulse_health/screens/record/widget/pressure_card_bpm.dart';
-import 'dart:math';
-
-import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
 
 class RecordContent extends StatelessWidget {
   final List<PressureData> pressureData;
@@ -38,7 +28,7 @@ class RecordContent extends StatelessWidget {
 
   Widget _createRecordBody(BuildContext context) {
     //final bloc = BlocProvider.of<RecordBloc>(context);
-    List<SalesData> _chartData = getChartData();
+    List<BpmData> _chartData = getChartData();
     TooltipBehavior _tooltipBehavior =  TooltipBehavior(enable: true);
     return Padding(
       padding: const EdgeInsets.only(top: 20),
@@ -158,26 +148,36 @@ class RecordContent extends StatelessWidget {
         .toString());
   }
 
-  Widget _graphValue(BuildContext context, List<SalesData> chartData, TooltipBehavior tooltipBehavior, ) {
+  Widget _graphValue(BuildContext context, List<BpmData> chartData, TooltipBehavior tooltipBehavior, ) {
+    // return SfCartesianChart(
+    //   title: ChartTitle(text: 'Ritmo Cardiaco'),
+    //   legend: Legend(isVisible: false),
+    //   tooltipBehavior: tooltipBehavior,
+    //   series: <ChartSeries>[
+    //     LineSeries<SalesData, double>(
+    //         name: 'BPM',
+    //         dataSource: chartData,
+    //         xValueMapper: (SalesData sales, _) => sales.year,
+    //         yValueMapper: (SalesData sales, _) => sales.sales,
+    //         dataLabelSettings: DataLabelSettings(isVisible: true),
+    //         enableTooltip: true)
+    //   ],
+    //   primaryXAxis: NumericAxis(
+    //     edgeLabelPlacement: EdgeLabelPlacement.shift,
+    //   ),
+    //   primaryYAxis: NumericAxis(
+    //       labelFormat: '{value}M',
+    //       numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
+    // );
     return SfCartesianChart(
-      title: ChartTitle(text: 'Ritmo Cardiaco'),
-      legend: Legend(isVisible: false),
-      tooltipBehavior: tooltipBehavior,
-      series: <ChartSeries>[
-        LineSeries<SalesData, double>(
-            name: 'BPM',
-            dataSource: chartData,
-            xValueMapper: (SalesData sales, _) => sales.year,
-            yValueMapper: (SalesData sales, _) => sales.sales,
-            dataLabelSettings: DataLabelSettings(isVisible: true),
-            enableTooltip: true)
+      primaryXAxis: DateTimeAxis(),
+      series: <ChartSeries<BpmData, DateTime>>[
+        LineSeries(
+          dataSource: chartData,
+          xValueMapper: (BpmData sales, _) => sales.x,
+          yValueMapper: (BpmData sales, _) => sales.y,
+        )
       ],
-      primaryXAxis: NumericAxis(
-        edgeLabelPlacement: EdgeLabelPlacement.shift,
-      ),
-      primaryYAxis: NumericAxis(
-          labelFormat: '{value}M',
-          numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
     );
   }
 
@@ -222,20 +222,22 @@ class RecordContent extends StatelessWidget {
     );
   }
 
-  List<SalesData> getChartData() {
-    final List<SalesData> chartData = [
-      SalesData(2017, 25),
-      SalesData(2018, 12),
-      SalesData(2019, 24),
-      SalesData(2020, 18),
-      SalesData(2021, 30)
-    ];
+  List<BpmData> getChartData() {
+    final List<PressureData> listPressureData = pressureData;
+    final List<BpmData> chartData = [];
+    print(listPressureData.length);
+    for ( int i=0;i<listPressureData.length;i++){
+      print(listPressureData[i].date);
+      print(listPressureData[i].bpm);
+      chartData.add(BpmData(listPressureData[i].date!,listPressureData[i].bpm!));
+    }
+
     return chartData;
   }
 }
 
-class SalesData {
-  SalesData(this.year, this.sales);
-  final double year;
-  final double sales;
+class BpmData {
+  BpmData(this.x, this.y);
+  final DateTime x;
+  final int y;
 }

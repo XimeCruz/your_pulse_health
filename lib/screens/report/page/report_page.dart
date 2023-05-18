@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/text_constants.dart';
+import 'package:your_pulse_health/core/service/bpm_service.dart';
 import 'package:your_pulse_health/screens/report/bloc/report_bloc.dart';
 import 'package:your_pulse_health/screens/report/widget/report_content.dart';
 
@@ -38,24 +39,16 @@ class ReportPage extends StatelessWidget {
 
   BlocProvider<ReportBloc> _buildContext(BuildContext context) {
     return BlocProvider<ReportBloc>(
-      create: (BuildContext context) => ReportBloc(),
+      create: (BuildContext context) => ReportBloc(BpmService())..add(GetPressureEvent()),
       child: BlocConsumer<ReportBloc, ReportState>(
-        buildWhen: (_, currState) =>
-            currState is ReportInitial ||
-            currState is TypePressureMeasurementState,
-        //currState is PressureInitial,
         builder: (context, state) {
-          final bloc = BlocProvider.of<ReportBloc>(context);
-          if (state is ReportInitial) {
-            bloc.add(ReportInitialEvent());
-            //bloc.add(ReloadDisplayNameEvent());
-            //bloc.add(ReloadImageEvent());
+          if (state is PressureDataState) {
+            return ReportContent(
+              pressureData: state.pressuredata,
+            );
           }
-          return ReportContent(
-            typepressures: bloc.typepressure,
-            // traceSine: [],
-            // traceCosine: [],
-            // radians: 0,);
+          return Center(
+            child: CircularProgressIndicator(),
           );
         },
         listenWhen: (_, currState) => true,

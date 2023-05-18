@@ -9,7 +9,6 @@ import 'package:your_pulse_health/core/const/text_constants.dart';
 import 'package:your_pulse_health/core/util/heart_bpm/chart.dart';
 import 'package:your_pulse_health/core/util/heart_bpm/heart_bpm.dart';
 import 'package:your_pulse_health/data/typepressure_data.dart';
-import 'package:your_pulse_health/screens/pressure/bloc/pressure_bloc.dart';
 import 'package:your_pulse_health/screens/pressure/widget/pressure_button.dart';
 import 'package:oscilloscope/oscilloscope.dart';
 import 'dart:math';
@@ -192,6 +191,8 @@ class _PressureCameraContentState extends State<PressureCameraContent> {
     return Expanded(flex: 1, child: scopeOne);
   }
 }
+
+
   chooseOptionPressure(BuildContext context) {
     List<TypePressureData> typePressure = DataConstants.typepressure;
     // set up the AlertDialog

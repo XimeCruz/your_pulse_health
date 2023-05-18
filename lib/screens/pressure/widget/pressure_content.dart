@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
 import 'package:your_pulse_health/core/const/data_constants.dart';
 import 'package:your_pulse_health/core/const/path_constants.dart';
@@ -133,20 +136,23 @@ class PressureContent extends StatelessWidget {
                     title: typePressure[1].text ?? "",
                     name: Icons.monitor_heart,
                     onTap: () async {
-                    final BluetoothDevice? selectedDevice =
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DiscoveryPage();
-                        },
-                      ),
-                    );
-                    if (selectedDevice != null) {
-                      print('Discovery -> selected ' + selectedDevice.address);
-                      _startChat(context, selectedDevice);
-                    } else {
-                      print('Discovery -> no device selected');
-                    }
+                      if(await _checkPermission()){
+                        final BluetoothDevice? selectedDevice =
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DiscoveryPage();
+                            },
+                          ),
+                        );
+                        if (selectedDevice != null) {
+                          print('Discovery -> selected ' + selectedDevice.address);
+                          _startChat(context, selectedDevice);
+                        } else {
+                          print('Discovery -> no device selected');
+                        }
+                      }
+
                   },
                 ),
               ],
@@ -163,6 +169,43 @@ class PressureContent extends StatelessWidget {
         return alert;
       },
     );
+  }
+
+  Future<bool> _checkPermission() async {
+    //android 13
+    // if(Platform.isAndroid){
+    //   DeviceInfoPlugin plugin = DeviceInfoPlugin();
+    //   AndroidDeviceInfo android = await plugin.androidInfo;
+    //   if(android.version.sdkInt >=33){
+    //     return true;
+    //   }
+    // }
+    //await Permission.storage.request();
+    await Permission.bluetooth.request();
+    await Permission.bluetoothAdvertise.request();
+    await Permission.bluetoothConnect.request();
+    await Permission.bluetoothScan.request();
+
+    var per1 = await Permission.bluetooth.request().isGranted;
+    var per2 = await Permission.bluetoothAdvertise.request().isGranted;
+    var per3 = await Permission.bluetoothConnect.request().isGranted;
+    var per4 = await Permission.bluetoothScan.request().isGranted;
+    if(per1 && per2 && per3 && per4){
+      return per1;
+    }
+    else{
+      await Permission.bluetooth.request();
+      await Permission.bluetoothAdvertise.request();
+      await Permission.bluetoothConnect.request();
+      await Permission.bluetoothScan.request();
+    }
+
+    var per1v = await Permission.bluetooth.request().isGranted;
+    var per2v = await Permission.bluetoothAdvertise.request().isGranted;
+    var per3v = await Permission.bluetoothConnect.request().isGranted;
+    var per4v = await Permission.bluetoothScan.request().isGranted;
+
+    return per1v && per2v && per3v && per4v ;
   }
 
   void _startChat(BuildContext context, BluetoothDevice server) {

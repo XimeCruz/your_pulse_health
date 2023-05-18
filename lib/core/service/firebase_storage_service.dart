@@ -12,7 +12,7 @@ class FirebaseStorageService {
     });
   }
 
-  static Future<bool> uploadImage({required String filePath}) async {
+  static Future<String> uploadImage({required String filePath}) async {
     File file = File(filePath);
     try {
       final User? user = FirebaseAuth.instance.currentUser;
@@ -20,12 +20,12 @@ class FirebaseStorageService {
         TaskSnapshot upload = await FirebaseStorage.instance.ref('user_logos/${user.uid}.png').putFile(file);
         String downloadUrl = await upload.ref.getDownloadURL();
         await UserService.editPhoto(downloadUrl);
-        return true;
+        return downloadUrl;
       }
-      return false;
+      return '';
     } catch (e) {
       print(e);
-      return false;
+      return '';
     }
   }
 }

@@ -180,11 +180,12 @@ class _BluetoothContentState extends State<BluetoothContent> {
                         splashColor: ColorConstants.reportColor,
                         onTap: () =>
                             setState((){
-                              BlocProvider.of<BluetoothBloc>(context).add(SaveBpmEvent(pressureBpm: valuestatebpm));
+
                               isBPMEnabled = !isBPMEnabled;
-                              // if(!isBPMEnabled){
-                              //   timer!.cancel();
-                              // }
+
+                              if(!isBPMEnabled){
+                                BlocProvider.of<BluetoothBloc>(context).add(SaveBpmEvent(pressureBpm: valuestatebpm));
+                              }
                             }),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

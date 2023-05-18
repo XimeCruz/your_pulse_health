@@ -41,6 +41,7 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothServiceState> {
         statusNew ='Arritmia';
       }
       PressureData pressureData = PressureData(id: '', userId: GlobalConstants.currentUser.uuid,date: DateTime.now(), bpm: event.pressureBpm, status: statusNew);
+      print(pressureData.toString());
       await bpmService.saveBpmPressure(pressureData);
     }
   }

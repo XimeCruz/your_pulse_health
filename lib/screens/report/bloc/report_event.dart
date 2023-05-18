@@ -12,3 +12,12 @@ class CardTappedEvent extends ReportEvent {
 class ReportInitialEvent extends ReportEvent {}
 
 class GraphEvent extends ReportEvent {}
+
+class GetPressureEvent extends ReportEvent{
+
+  final DateTime? startDate;
+  final DateTime? endDate;
+
+  GetPressureEvent({this.startDate,this.endDate});
+
+}

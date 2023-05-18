@@ -18,7 +18,7 @@ class BpmService{
   Future<List <PressureData>> getBpmPressure({DateTime? start, DateTime? end, String? typeOrd}) async{
 
     try{
-      var query = db.collection('bpm').where('userId',isEqualTo: GlobalConstants.currentUser.uuid);
+      var query = db.collection('bpm').where('userId',isEqualTo: GlobalConstants.currentUser.uuid).orderBy('date',descending: true);
       if (start != null && end != null){
         query = query.where('date',isGreaterThanOrEqualTo: Timestamp.fromDate(start)).where('date', isLessThanOrEqualTo: Timestamp.fromDate(end));
         // if (typeOrd != null){

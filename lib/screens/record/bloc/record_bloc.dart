@@ -26,23 +26,28 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     } else if (event is GetPressureEvent) {
       DateTime? dateStart;
       DateTime? dateEnd;
-
-      DateTime today = DateTime.now();
+      var list = null;
+      dateEnd = DateTime.now();
       if(event.filterDate!=null){
         switch(event.filterDate){
           case DateFilter.semana:
-            //dateStart = DateTime
+            dateStart = dateEnd.subtract( const Duration(days: 7));
+            // list = await bpmService.getBpmPressure(start: before,end: date);
             break;
           case DateFilter.mes:
-            // TODO: Handle this case.
+            dateStart =  DateTime.utc(dateEnd.year,dateEnd.month-1,dateEnd.day);
+            // list = await bpmService.getBpmPressure(start: dateStartF,end: date);
             break;
           case DateFilter.trimestre:
-            // TODO: Handle this case.
+            dateStart =  DateTime.utc(dateEnd.year,dateEnd.month-3,dateEnd.day);
+            // print(dateStartF);
+            // print(date);
+            // list = await bpmService.getBpmPressure(start: dateStartF,end: date);
             break;
         }
       }
 
-      var list = await bpmService.getBpmPressure(start: dateStart,end: dateEnd);
+      list = await bpmService.getBpmPressure(start: dateStart,end: dateEnd);
       print(list);
 
       yield PressureDataState(pressuredata: list);

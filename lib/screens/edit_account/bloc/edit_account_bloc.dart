@@ -23,8 +23,9 @@ class EditAccountBloc extends Bloc<EditAccountEvent, EditAccountState> {
             await ImagePicker().pickImage(source: ImageSource.gallery);
         if (image != null) {
           yield EditAccountProgress();
-          await FirebaseStorageService.uploadImage(filePath: image.path);
-          await UserStorageService.writeSecureData('image', image.path);
+          var pathCloud = await FirebaseStorageService.uploadImage(filePath: image.path);
+          //await UserStorageService.writeSecureData('image', image.path);
+          await UserStorageService.writeSecureData('image', pathCloud);
           yield EditPhotoSuccess(image);
         }
       } catch (e) {

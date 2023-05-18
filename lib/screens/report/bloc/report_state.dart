@@ -5,24 +5,18 @@ abstract class ReportState {}
 
 class ReportInitial extends ReportState {}
 
-// class CardTappedState extends PressureState {
-//   final WorkoutData workout;
-//
-//   CardTappedState({required this.workout});
-// }
-//
-// class ReloadPressureState extends PressureState {
-//   final List<WorkoutData> Pressure;
-//
-//   ReloadPressureState({
-//     required this.Pressure,
-//   });
-// }
-
 class TypePressureMeasurementState extends ReportState {
   final List<TypePressureData> typepressures;
 
   TypePressureMeasurementState({
     required this.typepressures,
+  });
+}
+
+class PressureDataState extends ReportState {
+  final List<PressureData> pressuredata;
+
+  PressureDataState({
+    required this.pressuredata,
   });
 }

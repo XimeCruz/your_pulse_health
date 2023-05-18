@@ -28,6 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield WorkoutsGotState(workouts: workouts);
     } else if (event is ReloadImageEvent) {
       String? photoURL = await UserStorageService.readSecureData('image');
+      print(photoURL);
       if (photoURL == null) {
         photoURL = AuthService.auth.currentUser?.photoURL;
         photoURL != null
