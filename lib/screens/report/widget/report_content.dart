@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:your_pulse_health/core/const/color_constants.dart';
+import 'package:your_pulse_health/core/const/global_constants.dart';
 import 'package:your_pulse_health/core/service/pdf_service.dart';
 import 'package:your_pulse_health/data/pressure_data.dart';
 import 'package:your_pulse_health/screens/report/bloc/report_bloc.dart';
@@ -12,10 +13,11 @@ class ReportContent extends StatefulWidget {
   final List<PressureData> pressureData;
   final String? startDate;
   final String? endDate;
+  final FormatPDF? formatPDF;
 
-  const ReportContent({
+  ReportContent({
     required this.pressureData,
-    Key? key, this.startDate = '', this.endDate = '',
+    Key? key, this.startDate = '', this.endDate = '',this.formatPDF
   });
 
   @override
@@ -49,6 +51,9 @@ class ReportContent extends StatefulWidget {
       txtDateEnd = widget.endDate!;
       txtDateEnd = '$month $day';
 
+      FormatPDF? formatPDF = widget.formatPDF;
+      formatPDF?.nombrePaciente = GlobalConstants.currentUser.name!;
+
       super.initState();
     }
 
@@ -77,7 +82,7 @@ class ReportContent extends StatefulWidget {
           //_downloadDocument(context),
           _rectangleDate(context),
           Container(
-            height: 550,
+            height: 690,
             child: ListView(
             scrollDirection: Axis.vertical,
             children: <Widget>[
@@ -85,6 +90,7 @@ class ReportContent extends StatefulWidget {
             _morningPressure(context),
             _afternoonPressure(context),
             _nightPressure(context),
+            _earlyMorningPressure(context)
             ],
             ),
           ),
@@ -112,6 +118,11 @@ class ReportContent extends StatefulWidget {
 
       txtDateStart = '$month $day';
       txtDateEnd = '$monthBefore $dayBefore';
+
+      FormatPDF? formatPDF = widget.formatPDF;
+      formatPDF?.dateStart = txtDateStart;
+      formatPDF?.dateEnd = txtDateEnd;
+
 
       BlocProvider.of<ReportBloc>(context).add(GetPressureEvent(startDate: args.value.startDate, endDate: args.value.endDate ?? args.value.startDate));
 
@@ -208,10 +219,8 @@ class ReportContent extends StatefulWidget {
             ),
             onPressed: ()
               async {
-                int number = 1;
-                final data = await PdfReportService().createPdf();
-                PdfReportService().savePdfFile("invoice$number", data);
-                number++;
+                final data = await PdfReportService().createPdf(widget.formatPDF);
+                PdfReportService().savePdfFile("Reporte BPM ${DateTime.now()} ${GlobalConstants.currentUser.name}", data);
               },
           ),
 
@@ -237,6 +246,19 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _globalPressure(BuildContext context){
+      num max = _getMaxPressureData('G');
+      num min = _getMinPressureData('G');
+      int prom = _getPromPressureData('G').toInt();
+
+      FormatPDF? formatPDF = widget.formatPDF;
+      formatPDF?.globalMax = max;
+      formatPDF?.globalMin = min;
+      formatPDF?.globalProm = prom;
+
+      setState(() {
+
+      });
+
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
           child: Container(
@@ -282,13 +304,16 @@ class ReportContent extends StatefulWidget {
                         ),
                       ),
                     ],
-                    rows: const <DataRow>[
+                    rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Pulso')),
-                          DataCell(Text('90')),
-                          DataCell(Text('80')),
-                          DataCell(Text('85')),
+                          DataCell(
+                              Text('Pulso')),
+                          DataCell(
+                            Text(max.toString()),
+                          ),
+                          DataCell(Text(min.toString())),
+                          DataCell(Text(prom.toString())),
                         ],
                       ),
                     ],
@@ -300,6 +325,20 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _morningPressure(BuildContext context){
+      num max = _getMaxPressureData('M');
+      num min = _getMinPressureData('M');
+      int prom = _getPromPressureData('M').toInt();
+
+      FormatPDF? formatPDF = widget.formatPDF;
+      formatPDF?.morningMax = max;
+      formatPDF?.morningMin = min;
+      formatPDF?.morningProm = prom;
+
+      setState(() {
+
+      });
+
+
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
           child: Container(
@@ -309,7 +348,7 @@ class ReportContent extends StatefulWidget {
               child: Column(
                 children: [
                   SizedBox(height: 10,),
-                  Text("Mañana(06-12)"),
+                  Text("Mañana (06-12)"),
                   DataTable(
                     columns: const <DataColumn>[
                       DataColumn(
@@ -345,13 +384,16 @@ class ReportContent extends StatefulWidget {
                         ),
                       ),
                     ],
-                    rows: const <DataRow>[
+                    rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Pulso')),
-                          DataCell(Text('90')),
-                          DataCell(Text('80')),
-                          DataCell(Text('85')),
+                          DataCell(
+                              Text('Pulso')),
+                          DataCell(
+                            Text(max.toString()),
+                          ),
+                          DataCell(Text(min.toString())),
+                          DataCell(Text(prom.toString())),
                         ],
                       ),
                     ],
@@ -363,6 +405,19 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _afternoonPressure(BuildContext context){
+      num max = _getMaxPressureData('T');
+      num min = _getMinPressureData('T');
+      int prom = _getPromPressureData('T').toInt();
+
+      FormatPDF? formatPDF = widget.formatPDF;
+      formatPDF?.afternoonMax = max;
+      formatPDF?.afternoonMin = min;
+      formatPDF?.afternoonProm = prom;
+
+      setState(() {
+
+      });
+
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
           child: Container(
@@ -408,13 +463,16 @@ class ReportContent extends StatefulWidget {
                         ),
                       ),
                     ],
-                    rows: const <DataRow>[
+                    rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Pulso')),
-                          DataCell(Text('90')),
-                          DataCell(Text('80')),
-                          DataCell(Text('85')),
+                          DataCell(
+                              Text('Pulso')),
+                          DataCell(
+                            Text(max.toString()),
+                          ),
+                          DataCell(Text(min.toString())),
+                          DataCell(Text(prom.toString())),
                         ],
                       ),
                     ],
@@ -426,6 +484,19 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _nightPressure(BuildContext context){
+      num max = _getMaxPressureData('N');
+      num min = _getMinPressureData('N');
+      int prom = _getPromPressureData('N').toInt();
+
+      FormatPDF? formatPDF = widget.formatPDF;
+      formatPDF?.nightMax = max;
+      formatPDF?.nightMin = min;
+      formatPDF?.nightProm = prom;
+
+      setState(() {
+
+      });
+
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
           child: Container(
@@ -471,13 +542,16 @@ class ReportContent extends StatefulWidget {
                         ),
                       ),
                     ],
-                    rows: const <DataRow>[
+                    rows: <DataRow>[
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('Pulso')),
-                          DataCell(Text('90')),
-                          DataCell(Text('80')),
-                          DataCell(Text('85')),
+                          DataCell(
+                              Text('Pulso')),
+                          DataCell(
+                            Text(max.toString()),
+                          ),
+                          DataCell(Text(min.toString())),
+                          DataCell(Text(prom.toString())),
                         ],
                       ),
                     ],
@@ -488,6 +562,302 @@ class ReportContent extends StatefulWidget {
       );
     }
 
+    Widget _earlyMorningPressure(BuildContext context){
+      num max = _getMaxPressureData('MA');
+      num min = _getMinPressureData('MA');
+      int prom = _getPromPressureData('MA').toInt();
+
+      FormatPDF? formatPDF = widget.formatPDF;
+      formatPDF?.earlyMorningMax = max;
+      formatPDF?.earlyMorningMin = min;
+      formatPDF?.earlyMorningProm = prom;
+
+      setState(() {
+
+      });
+
+      return Padding(
+          padding: const EdgeInsets.only(left: 10,right: 10),
+          child: Container(
+              width: double.infinity,
+              height: 170,
+              padding: new EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 10,),
+                  Text("Madrugada (00-06)"),
+                  DataTable(
+                    columns: const <DataColumn>[
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            '',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            'Max',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            'Min',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            'Prom',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ),
+                    ],
+                    rows: <DataRow>[
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(
+                              Text('Pulso')),
+                          DataCell(
+                            Text(max.toString()),
+                          ),
+                          DataCell(Text(min.toString())),
+                          DataCell(Text(prom.toString())),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              )
+          )
+      );
+    }
+
+    num _getMaxPressureData(String type){
+      List<PressureData> list = widget.pressureData;
+
+      List<num> listBpm = [];
+
+      // for (int i = 0; i < list.length; i++) {
+      //   listBpm.add(list[i].bpm!);
+      // }
+
+      if(type!=null){
+        switch(type){
+          case 'G':
+            for (int i = 0; i < list.length; i++) {
+              listBpm.add(list[i].bpm!);
+            }
+            break;
+          case 'D':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour >= 6 && list[i].date!.hour <= 12){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'T':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 12 && list[i].date!.hour <= 18){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'N':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 18 && list[i].date!.hour <= 24){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'MA':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 24 && list[i].date!.hour <= 5){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+        }
+      }
+
+      num bpmMayor = 0;
+      for (var i = 0; i < listBpm.length; i++) {
+        if (listBpm[i] > bpmMayor) {
+          bpmMayor = listBpm[i];
+        }
+      }
+
+      return bpmMayor;
+    }
+
+    num _getMinPressureData(String type){
+
+      List<PressureData> list = widget.pressureData;
+      List<num> listBpm = [];
+
+      if(type!=null){
+        switch(type){
+          case 'G':
+            for (int i = 0; i < list.length; i++) {
+              listBpm.add(list[i].bpm!);
+            }
+            break;
+          case 'D':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour >= 6 && list[i].date!.hour <= 12){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'T':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 12 && list[i].date!.hour <= 18){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'N':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 18 && list[i].date!.hour <= 24){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'MA':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 24 && list[i].date!.hour <= 5){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+        }
+      }
+
+      num bpmMin = 0;
+      if(listBpm.length != 0){
+        bpmMin = listBpm[0];
+      }
+
+      for (var i = 0; i < listBpm.length; i++) {
+        if (listBpm[i] < bpmMin) {
+          bpmMin = listBpm[i];
+        }
+      }
+
+      return bpmMin;
+    }
+
+    num _getPromPressureData(String type){
+
+      List<PressureData> list = widget.pressureData;
+      List<num> listBpm = [];
+
+      if(type!=null){
+        switch(type){
+          case 'G':
+            for (int i = 0; i < list.length; i++) {
+              listBpm.add(list[i].bpm!);
+            }
+            break;
+          case 'D':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour >= 6 && list[i].date!.hour <= 12){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'T':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 12 && list[i].date!.hour <= 18){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'N':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 18 && list[i].date!.hour <= 24){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+          case 'MA':
+            for (int i = 0; i < list.length; i++) {
+              if(list[i].date!.hour > 24 && list[i].date!.hour <= 5){
+                listBpm.add(list[i].bpm!);
+              }
+            }
+            break;
+        }
+      }
+      num bpmProm = 0;
+      num bpmTotal = 0;
+      num cantBpm = listBpm.length;
+
+      for (var i = 0; i < listBpm.length; i++) {
+        bpmTotal = bpmTotal + listBpm[i];
+      }
+
+      if(bpmTotal != 0){
+        bpmProm = (bpmTotal/cantBpm);
+      }
+
+      return bpmProm;
+    }
+  }
+
+  class FormatPDF {
+    String nombrePaciente;
+    String dateStart;
+    String dateEnd;
+
+    num globalMax;
+    num globalMin;
+    num globalProm;
+
+    num morningMax;
+    num morningMin;
+    num morningProm;
+
+    num afternoonMax;
+    num afternoonMin;
+    num afternoonProm;
+
+    num nightMax;
+    num nightMin;
+    num nightProm;
+
+    num earlyMorningMax;
+    num earlyMorningMin;
+    num earlyMorningProm;
+
+    FormatPDF(
+        this.nombrePaciente,
+        this.dateStart,
+        this.dateEnd,
+        this.globalMax,
+        this.globalMin,
+        this.globalProm,
+        this.morningMax,
+        this.morningMin,
+        this.morningProm,
+        this.afternoonMax,
+        this.afternoonMin,
+        this.afternoonProm,
+        this.nightMax,
+        this.nightMin,
+        this.nightProm,
+        this.earlyMorningMax,
+        this.earlyMorningMin,
+        this.earlyMorningProm,
+    );
   }
 
 

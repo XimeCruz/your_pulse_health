@@ -45,7 +45,7 @@ class TipContent extends StatelessWidget {
           // ),
           const SizedBox(height: 15),
           Container(
-            height: 500,
+            height: 635,
             child: ListView(
               scrollDirection: Axis.vertical,
               children: DataConstants.tips

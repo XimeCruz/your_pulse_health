@@ -76,4 +76,7 @@ class PathConstants {
   static const String imageTip6 = 'assets/images/tip/tip6.jpg';
   static const String imageTip7 = 'assets/images/tip/tip7.jpg';
   static const String imageTip8 = 'assets/images/tip/tip8.jpg';
+
+  //PDF generator
+  static const String iconApplication= 'assets/images/home/cardiaPressure.png';
 }

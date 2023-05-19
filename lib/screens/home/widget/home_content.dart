@@ -14,7 +14,6 @@ import 'package:your_pulse_health/screens/record/page/record_page.dart';
 import 'package:your_pulse_health/screens/report/page/report_page.dart';
 import 'package:your_pulse_health/screens/tab_bar/bloc/tab_bar_bloc.dart';
 import 'package:your_pulse_health/screens/tip/page/tip_page.dart';
-import 'package:your_pulse_health/screens/workout_details_screen/page/workout_details_page.dart';
 
 import 'home_exercises_card.dart';
 

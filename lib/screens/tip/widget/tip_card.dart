@@ -15,7 +15,7 @@ class WorkoutCard extends StatelessWidget {
     final bloc = BlocProvider.of<WorkoutsBloc>(context);
     return Container(
       width: double.infinity,
-      height: 140,
+      height: 160,
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

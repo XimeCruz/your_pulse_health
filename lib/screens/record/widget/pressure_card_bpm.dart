@@ -15,6 +15,15 @@ class PressureHomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+
+    DateTime? startDay = pressure.date;
+
+    final day = startDay?.day;
+    final months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    //final month = months[(startDay?.month) - 1];
+
+    //String txtDateStart = '$month $day';
+
     return GestureDetector(
       onTap: onTap,
       child: Container(

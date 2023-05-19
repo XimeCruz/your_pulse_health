@@ -26,7 +26,7 @@ class TipHomeCard extends StatelessWidget {
         //   top: 10,
         //   right: 12,
         // ),
-        height: 320,
+        height: 330,
         width: screenWidth * 0.6,
         // decoration: BoxDecoration(
         //   borderRadius: BorderRadius.circular(15),
