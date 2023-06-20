@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:your_pulse_health/core/extensions/exceptions.dart';
 import 'package:your_pulse_health/core/const/global_constants.dart';
@@ -14,7 +16,7 @@ class AuthService {
     await user.updateDisplayName(name);
 
     final userData = UserData.fromFirebase(auth.currentUser);
-    await UserStorageService.writeSecureData(email, userData.toJsonString());
+    await UserStorageService.writeSecureData(email, userData is UserData? jsonEncode(userData.toJson()):"");
     GlobalConstants.currentUser = userData;
 
     return user;

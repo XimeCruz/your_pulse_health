@@ -30,6 +30,12 @@ class PressureContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
+    FlutterBluetoothSerial.instance.state.then((state) {
+
+      _bluetoothState = state;
+
+    });
     return Container(
       color: ColorConstants.homeBackgroundColor,
       height: double.infinity,
@@ -288,7 +294,7 @@ class PressureContent extends StatelessWidget {
                     children: [
                       Text('$valuestatebpm',
                           style: TextStyle(fontSize: 50)),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 5),
                       Text('$valuebpm',
                           style: TextStyle(fontSize: 18, )),
                     ],

@@ -66,7 +66,18 @@ class ReminderPage extends StatelessWidget {
         return ReminderContent();
       },
       listenWhen: (_, currState) => currState is OnSaveTappedState,
-      listener: (context, state) {
+      listener: (context, state) async {
+        await showDialog(
+            context: context,
+            builder: (context){
+              return AlertDialog(
+                title: Text("Se guardó el recordatorio"),
+                actions: [
+                  TextButton(onPressed: (){Navigator.of(context).pop();}, child: Text("Aceptar"))
+                ],
+              );
+            }
+        );
         Navigator.of(context).pop();
       },
     );

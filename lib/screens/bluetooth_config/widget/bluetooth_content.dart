@@ -67,12 +67,6 @@ class _BluetoothContentState extends State<BluetoothContent> {
       });
 
       connection!.input!.listen(_onDataReceived).onDone(() {
-        // Example: Detect which side closed the connection
-        // There should be `isDisconnecting` flag to show are we are (locally)
-        // in middle of disconnecting process, should be set before calling
-        // `dispose`, `finish` or `close`, which all causes to disconnect.
-        // If we except the disconnection, `onDone` should be fired as result.
-        // If we didn't except this (no flag set), it means closing by remote.
         if (isDisconnecting) {
           print('Disconnecting locally!');
         } else {
@@ -137,35 +131,52 @@ class _BluetoothContentState extends State<BluetoothContent> {
 
             // print("vv= ${bpm.length} fin");
             if(bpm.length<=1){
-              List<String> bpmReal= bpm[0].split("=");
-              if(bpmReal[0]=="B"){
-                valuestatebpm = int.parse(bpmReal[1]);
-              }else{
-                if (bpm[0][0]!="B"){
-                  time = time +1.0;
-                  listDataGraph.add(GraphDataC(time, double.parse(bpm[0])));
-                  if (time>100){
-                    listDataGraph.removeAt(0);
+              if(bpm[0]!="0"){
+                print("VALOR= ${bpm[0]}");
+                List<String> bpmReal= bpm[0].split("=");
+                if(bpmReal.length>=2){
+                  valuestatebpm = int.parse(bpmReal[1]);
+                }else{
+                  if(bpm[0].isNotEmpty){
+                    if (bpm[0][0]!="B"){
+                      if(bpm[0].length==3){
+                        time = time +1.0;
+                        listDataGraph.add(GraphDataC(time, double.parse(bpm[0])));
+                        if (time>100){
+                          listDataGraph.removeAt(0);
+                        }
+                      }
+                    }
                   }
+
                 }
               }
+
             }
             else{
               for(int i=0;i<bpm.length;i++){
-                // print("VALOR= ${bpm[i]}");
-                List<String> bpmReal= bpm[i].split("=");
-                if(bpmReal[0]=="B"){
-                  print(bpmReal[1]);
-                  valuestatebpm = int.parse(bpmReal[1]);
-                }else{
-                  if (bpm[i][0]!="B"){
-                    time = time +1.0;
-                    listDataGraph.add(GraphDataC(time, double.parse(bpm[i])));
-                    if (time>100){
-                      listDataGraph.removeAt(0);
+                if(bpm[i]!="0"){
+                  print("VALOR= ${bpm[i]}");
+                  List<String> bpmReal= bpm[i].split("=");
+                  if(bpmReal.length>=2){
+                    print(bpmReal[1]);
+                    valuestatebpm = int.parse(bpmReal[1]);
+                  }else{
+                    if(bpm[i].isNotEmpty){
+                      if (bpm[i][0]!="B"){
+                        if(bpm[i].length==3){
+                          time = time +1.0;
+                          listDataGraph.add(GraphDataC(time, double.parse(bpm[i])));
+                          if (time>100){
+                            listDataGraph.removeAt(0);
+                          }
+                        }
+                      }
                     }
+
                   }
                 }
+
               }
             }
 

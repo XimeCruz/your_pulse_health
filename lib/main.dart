@@ -34,15 +34,15 @@ class _MyAppState extends State<MyApp> {
   initState() {
     super.initState();
     const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-    final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
-    final InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    //final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
+    final InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
 
     tz.initializeTimeZones();
 
     //osciloscopio
     //_timer = Timer.periodic(Duration(milliseconds: 60), _generateTrace);
 
-    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   //osci
@@ -95,13 +95,13 @@ class _MyAppState extends State<MyApp> {
   //   );
   // }
 
-  Future selectNotification(String? payload) async {
+  Future selectNotification(NotificationResponse payload) async {
     showDialog(
       context: context,
       builder: (_) {
         return new AlertDialog(
           title: Text("PayLoad"),
-          content: Text("Payload : $payload"),
+          content: Text("Payload : ${payload.payload}"),
         );
       },
     );

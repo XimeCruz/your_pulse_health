@@ -53,7 +53,7 @@ dependencies:
   image_picker: ^0.8.2
 
   # Reminder notification
-  flutter_local_notifications: ^8.0.0
+  flutter_local_notifications: ^11.0.0
 
   # Native timezone
   flutter_native_timezone: ^2.0.0

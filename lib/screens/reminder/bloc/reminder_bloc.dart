@@ -38,12 +38,10 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     final flutterNotificationsPlugin = FlutterLocalNotificationsPlugin();
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'your other channel id',
-        'your other channel name',
-        'your other channel description');
-    final iOSPlatformChannelSpecifics = IOSNotificationDetails();
+        'your other channel name');
+    /*final iOSPlatformChannelSpecifics = IOSNotificationDetails();*/
     NotificationDetails platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+        android: androidPlatformChannelSpecifics);
 
     await flutterNotificationsPlugin.zonedSchedule(
       1,
@@ -56,6 +54,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       androidAllowWhileIdle: true,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
     );
+
   }
 
   tz.TZDateTime _scheduleDaily(DateTime dateTime) {
