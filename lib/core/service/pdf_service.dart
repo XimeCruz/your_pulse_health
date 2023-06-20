@@ -18,12 +18,7 @@ import 'package:your_pulse_health/screens/report/widget/report_content.dart';
 class PdfReportService {
   Future<Uint8List> createPdf(FormatPDF? formatPDF) async{
     final pdf = pw.Document();
-    FormatPDF newFormatPDF = FormatPDF(
-        '${formatPDF?.nombrePaciente} ',
-        '${formatPDF?.dateStart} ',
-        '${formatPDF?.dateEnd} ' ,
-        0,
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+    FormatPDF newFormatPDF = formatPDF!;
 
     final image = (await rootBundle.load(PathConstants.iconApplication))
         .buffer

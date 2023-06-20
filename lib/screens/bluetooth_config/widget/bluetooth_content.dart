@@ -130,25 +130,82 @@ class _BluetoothContentState extends State<BluetoothContent> {
     final List<Text> list = messages.map((_message) {
       return Text(
               (text) {
-            List<String> bpm = _message.text.trim().split(" = ");
-            if(bpm[0] == "BPM"){
-              print("bpm == "+bpm[1]);
-              if (_message.text.trim().split(" = ")[1].length<=3){
+            List<String> bpm = _message.text.trim().split("\n");
+                // String valor = _message.text.trim();
+                // print(valor);
+                // print("SALTO");
 
-                valuestatebpm = int.parse(_message.text.trim().split(" = ")[1]);
-              }
-
-            }else{
-              // List<String> bpm1 = _message.text.trim().split(" = ");
-              if(_message.text.trim().length<=4){
-                time = time +1.0;
-                listDataGraph.add(GraphDataC(time, double.parse(_message.text.trim())));
-                if (time>100){
-                  listDataGraph.removeAt(0);
+            // print("vv= ${bpm.length} fin");
+            if(bpm.length<=1){
+              List<String> bpmReal= bpm[0].split("=");
+              if(bpmReal[0]=="B"){
+                valuestatebpm = int.parse(bpmReal[1]);
+              }else{
+                if (bpm[0][0]!="B"){
+                  time = time +1.0;
+                  listDataGraph.add(GraphDataC(time, double.parse(bpm[0])));
+                  if (time>100){
+                    listDataGraph.removeAt(0);
+                  }
                 }
               }
-              // print("data == " +_message.text.trim());
             }
+            else{
+              for(int i=0;i<bpm.length;i++){
+                // print("VALOR= ${bpm[i]}");
+                List<String> bpmReal= bpm[i].split("=");
+                if(bpmReal[0]=="B"){
+                  print(bpmReal[1]);
+                  valuestatebpm = int.parse(bpmReal[1]);
+                }else{
+                  if (bpm[i][0]!="B"){
+                    time = time +1.0;
+                    listDataGraph.add(GraphDataC(time, double.parse(bpm[i])));
+                    if (time>100){
+                      listDataGraph.removeAt(0);
+                    }
+                  }
+                }
+              }
+            }
+
+
+
+            //
+            // if(valor[0] == "B"){
+            //   print("bpm == "+valor);
+            //   if (_message.text.trim().split(" = ")[1].length<=3){
+            //
+            //   String bpm = _message.text.trim().replaceAll(RegExp(r'[^0-9]'),'');
+            //   print("bpm == "+bpm);
+            //     valuestatebpm = int.parse(bpm);
+            //   }
+            //
+            // }else{
+            //
+            //   if(!valor.contains("B") && valor.isNotEmpty){
+            //     print(valor);
+            //     num? valAux = num.tryParse(_message.text.trim().replaceAll(" ", "")) ;
+            //     if(valAux!=null){
+            //       num val = valAux;
+            //       print("t=${val}");
+            //     }
+            //   }
+            //
+            //   List<String> bpm1 = _message.text.trim().split(" = ");
+            //
+            //
+            //   print(val);
+            //   if(val>=0 && val<=1000){
+            //     print(val);
+            //     time = time +1.0;
+            //     listDataGraph.add(GraphDataC(time, val));
+            //     if (time>100){
+            //       listDataGraph.removeAt(0);
+            //     }
+            //   }
+            //   print("data == " +_message.text.trim());
+            // }
             // if
             // listDataGraph.add(GraphDataC(1.0,1.0));
 

@@ -11,13 +11,13 @@ import 'package:your_pulse_health/screens/report/bloc/report_bloc.dart';
 //class ReportContent extends StatelessWidget {
 class ReportContent extends StatefulWidget {
   final List<PressureData> pressureData;
-  final String? startDate;
-  final String? endDate;
-  final FormatPDF? formatPDF;
+  // final String? startDate;
+  // final String? endDate;
+  //final FormatPDF? formatPDF;
 
   ReportContent({
     required this.pressureData,
-    Key? key, this.startDate = '', this.endDate = '',this.formatPDF
+    Key? key,
   });
 
   @override
@@ -33,6 +33,29 @@ class ReportContent extends StatefulWidget {
     String txtDateEnd = '';
 
 
+    ///declarar variables de variantes de dia
+
+    num globalMax = 0;
+    num globalMin = 0;
+    int globalProm = 0;
+
+    num morningMax = 0;
+    num morningMin = 0;
+    int morningProm = 0;
+
+    num afternoonMax = 0;
+    num afternoonMin = 0;
+    int afternoonProm = 0;
+
+    num nightMax = 0;
+    num nightMin = 0;
+    int nightProm = 0;
+
+    num earlyMax = 0;
+    num earlyMin = 0;
+    int earlyProm = 0;
+
+
     @override
     void initState() {
       DateTime date = DateTime.now();
@@ -45,14 +68,34 @@ class ReportContent extends StatefulWidget {
       late int dayBefore = before.day;
       late String monthBefore = months[before.month-1];
 
-      txtDateStart = widget.startDate!;
+      // txtDateStart = widget.startDate!;
       txtDateStart = '$monthBefore $dayBefore';
-
-      txtDateEnd = widget.endDate!;
+      // txtDateEnd = widget.endDate!;
       txtDateEnd = '$month $day';
 
-      FormatPDF? formatPDF = widget.formatPDF;
-      formatPDF?.nombrePaciente = GlobalConstants.currentUser.name!;
+      globalMax = _getMaxPressureData('G');
+      globalMin = _getMinPressureData('G');
+      globalProm = _getPromPressureData('G').toInt();
+
+      morningMax = _getMaxPressureData('M');
+      morningMin = _getMinPressureData('M');
+      morningProm = _getPromPressureData('M').toInt();
+
+      afternoonMax = _getMaxPressureData('T');
+      afternoonMin = _getMinPressureData('T');
+      afternoonProm = _getPromPressureData('T').toInt();
+
+      nightMax = _getMaxPressureData('N');
+      nightMin = _getMinPressureData('N');
+      nightProm = _getPromPressureData('N').toInt();
+
+      earlyMax = _getMaxPressureData('MA');
+      earlyMin = _getMinPressureData('MA');
+      earlyProm = _getPromPressureData('MA').toInt();
+
+      setState(() {
+
+      });
 
       super.initState();
     }
@@ -119,10 +162,34 @@ class ReportContent extends StatefulWidget {
       txtDateStart = '$month $day';
       txtDateEnd = '$monthBefore $dayBefore';
 
-      FormatPDF? formatPDF = widget.formatPDF;
-      formatPDF?.dateStart = txtDateStart;
-      formatPDF?.dateEnd = txtDateEnd;
+      print("object"+txtDateStart);
 
+      // FormatPDF? formatPDF = widget.formatPDF;
+      // formatPDF?.dateStart = txtDateStart;
+      // formatPDF?.dateEnd = txtDateEnd;
+
+
+      //seterar los cuatro de varianters tiempo
+
+      globalMax = _getMaxPressureData('G');
+      globalMin = _getMinPressureData('G');
+      globalProm = _getPromPressureData('G').toInt();
+
+      morningMax = _getMaxPressureData('M');
+      morningMin = _getMinPressureData('M');
+      morningProm = _getPromPressureData('M').toInt();
+
+      afternoonMax = _getMaxPressureData('T');
+      afternoonMin = _getMinPressureData('T');
+      afternoonProm = _getPromPressureData('T').toInt();
+
+      nightMax = _getMaxPressureData('N');
+      nightMin = _getMinPressureData('N');
+      nightProm = _getPromPressureData('N').toInt();
+
+      earlyMax = _getMaxPressureData('MA');
+      earlyMin = _getMinPressureData('MA');
+      earlyProm = _getPromPressureData('MA').toInt();
 
       BlocProvider.of<ReportBloc>(context).add(GetPressureEvent(startDate: args.value.startDate, endDate: args.value.endDate ?? args.value.startDate));
 
@@ -219,7 +286,9 @@ class ReportContent extends StatefulWidget {
             ),
             onPressed: ()
               async {
-                final data = await PdfReportService().createPdf(widget.formatPDF);
+                print(txtDateStart);
+                FormatPDF format = FormatPDF(GlobalConstants.currentUser.name!, txtDateStart, txtDateEnd, 10,globalMin,globalProm,0,0,0,0,0,0,0,0,0,0,0,0);
+                final data = await PdfReportService().createPdf(format);
                 PdfReportService().savePdfFile("Reporte BPM ${DateTime.now()} ${GlobalConstants.currentUser.name}", data);
               },
           ),
@@ -246,18 +315,6 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _globalPressure(BuildContext context){
-      num max = _getMaxPressureData('G');
-      num min = _getMinPressureData('G');
-      int prom = _getPromPressureData('G').toInt();
-
-      FormatPDF? formatPDF = widget.formatPDF;
-      formatPDF?.globalMax = max;
-      formatPDF?.globalMin = min;
-      formatPDF?.globalProm = prom;
-
-      setState(() {
-
-      });
 
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
@@ -310,10 +367,14 @@ class ReportContent extends StatefulWidget {
                           DataCell(
                               Text('Pulso')),
                           DataCell(
-                            Text(max.toString()),
+                            Text(globalMax.toString()),
                           ),
-                          DataCell(Text(min.toString())),
-                          DataCell(Text(prom.toString())),
+                          DataCell(
+                              Text(globalMin.toString())
+                          ),
+                          DataCell(
+                              Text(globalProm.toString())
+                          ),
                         ],
                       ),
                     ],
@@ -325,19 +386,6 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _morningPressure(BuildContext context){
-      num max = _getMaxPressureData('M');
-      num min = _getMinPressureData('M');
-      int prom = _getPromPressureData('M').toInt();
-
-      FormatPDF? formatPDF = widget.formatPDF;
-      formatPDF?.morningMax = max;
-      formatPDF?.morningMin = min;
-      formatPDF?.morningProm = prom;
-
-      setState(() {
-
-      });
-
 
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
@@ -390,10 +438,10 @@ class ReportContent extends StatefulWidget {
                           DataCell(
                               Text('Pulso')),
                           DataCell(
-                            Text(max.toString()),
+                            Text(morningMax.toString()),
                           ),
-                          DataCell(Text(min.toString())),
-                          DataCell(Text(prom.toString())),
+                          DataCell(Text(morningMin.toString())),
+                          DataCell(Text(morningProm.toString())),
                         ],
                       ),
                     ],
@@ -405,18 +453,6 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _afternoonPressure(BuildContext context){
-      num max = _getMaxPressureData('T');
-      num min = _getMinPressureData('T');
-      int prom = _getPromPressureData('T').toInt();
-
-      FormatPDF? formatPDF = widget.formatPDF;
-      formatPDF?.afternoonMax = max;
-      formatPDF?.afternoonMin = min;
-      formatPDF?.afternoonProm = prom;
-
-      setState(() {
-
-      });
 
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
@@ -469,10 +505,10 @@ class ReportContent extends StatefulWidget {
                           DataCell(
                               Text('Pulso')),
                           DataCell(
-                            Text(max.toString()),
+                            Text(afternoonMax.toString()),
                           ),
-                          DataCell(Text(min.toString())),
-                          DataCell(Text(prom.toString())),
+                          DataCell(Text(afternoonMin.toString())),
+                          DataCell(Text(afternoonProm.toString())),
                         ],
                       ),
                     ],
@@ -484,18 +520,7 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _nightPressure(BuildContext context){
-      num max = _getMaxPressureData('N');
-      num min = _getMinPressureData('N');
-      int prom = _getPromPressureData('N').toInt();
 
-      FormatPDF? formatPDF = widget.formatPDF;
-      formatPDF?.nightMax = max;
-      formatPDF?.nightMin = min;
-      formatPDF?.nightProm = prom;
-
-      setState(() {
-
-      });
 
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
@@ -548,10 +573,10 @@ class ReportContent extends StatefulWidget {
                           DataCell(
                               Text('Pulso')),
                           DataCell(
-                            Text(max.toString()),
+                            Text(nightMax.toString()),
                           ),
-                          DataCell(Text(min.toString())),
-                          DataCell(Text(prom.toString())),
+                          DataCell(Text(nightMin.toString())),
+                          DataCell(Text(nightMax.toString())),
                         ],
                       ),
                     ],
@@ -563,18 +588,7 @@ class ReportContent extends StatefulWidget {
     }
 
     Widget _earlyMorningPressure(BuildContext context){
-      num max = _getMaxPressureData('MA');
-      num min = _getMinPressureData('MA');
-      int prom = _getPromPressureData('MA').toInt();
 
-      FormatPDF? formatPDF = widget.formatPDF;
-      formatPDF?.earlyMorningMax = max;
-      formatPDF?.earlyMorningMin = min;
-      formatPDF?.earlyMorningProm = prom;
-
-      setState(() {
-
-      });
 
       return Padding(
           padding: const EdgeInsets.only(left: 10,right: 10),
@@ -627,10 +641,10 @@ class ReportContent extends StatefulWidget {
                           DataCell(
                               Text('Pulso')),
                           DataCell(
-                            Text(max.toString()),
+                            Text(earlyMax.toString()),
                           ),
-                          DataCell(Text(min.toString())),
-                          DataCell(Text(prom.toString())),
+                          DataCell(Text(earlyMin.toString())),
+                          DataCell(Text(earlyProm.toString())),
                         ],
                       ),
                     ],
